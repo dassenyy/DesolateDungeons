@@ -1,0 +1,10 @@
+// 1.21.4	-999999999-01-01T00:00:00	Desolate Dungeons/Tags for minecraft:block
+65a10abaff1bcf20b83c77e45e37a11293c9906e data/desolate_dungeons/tags/block/scarab_beetles_spawnable_on.json
+f1226c877e8503af4b5102f1a9b3193b036bf40a data/fabric/tags/block/needs_tool_level_0.json
+bbfa32463217e65a22742296edd94a25d842ace6 data/minecraft/tags/block/base_stone_overworld.json
+f1226c877e8503af4b5102f1a9b3193b036bf40a data/minecraft/tags/block/mineable/pickaxe.json
+cccd339efa30999c7989654a6fbd9077735f6479 data/minecraft/tags/block/mineable/shovel.json
+b1cb5778f363622c1e1a033a150b799f1413d489 data/minecraft/tags/block/slabs.json
+aaee86dff1c3a16d85a8d6db2f3e93e6fe2dcc4d data/minecraft/tags/block/stairs.json
+bbfa32463217e65a22742296edd94a25d842ace6 data/minecraft/tags/block/stone_ore_replaceables.json
+6da8635eec9a8822cbea36867d28ab227a4298e8 data/minecraft/tags/block/walls.json

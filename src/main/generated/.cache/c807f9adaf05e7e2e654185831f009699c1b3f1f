@@ -1,0 +1,13 @@
+// 1.21.4	-999999999-01-01T00:00:00	Desolate Dungeons/Tags for minecraft:item
+3c5d30277391e2b52c9eed4cebdb0a7c52b9cb9c data/c/tags/item/enchantables.json
+3c5d30277391e2b52c9eed4cebdb0a7c52b9cb9c data/c/tags/item/tools.json
+3c5d30277391e2b52c9eed4cebdb0a7c52b9cb9c data/c/tags/item/tools/melee_weapon.json
+3c5d30277391e2b52c9eed4cebdb0a7c52b9cb9c data/c/tags/item/tools/melee_weapons.json
+3c5d30277391e2b52c9eed4cebdb0a7c52b9cb9c data/desolate_dungeons/tags/item/enchantable/khopesh.json
+73514102d8c73d837069b9343c958da1222311c2 data/desolate_dungeons/tags/item/khopeshes.json
+3c5d30277391e2b52c9eed4cebdb0a7c52b9cb9c data/minecraft/tags/item/breaks_decorated_pots.json
+3c5d30277391e2b52c9eed4cebdb0a7c52b9cb9c data/minecraft/tags/item/enchantable/durability.json
+3c5d30277391e2b52c9eed4cebdb0a7c52b9cb9c data/minecraft/tags/item/enchantable/sharp_weapon.json
+e92e2bb87487fb44e3ab2a7cdaf467d2476bac55 data/minecraft/tags/item/slabs.json
+2f4a5067eadd046fb39af6467ee3f2d6b93dfc5f data/minecraft/tags/item/stairs.json
+86ae3a32f3255e91c11fa01ca5507c8401591211 data/minecraft/tags/item/walls.json

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "desolate_dungeons:block/sandstone_brick_slab"
+    },
+    "type=double": {
+      "model": "desolate_dungeons:block/sandstone_bricks"
+    },
+    "type=top": {
+      "model": "desolate_dungeons:block/sandstone_brick_slab_top"
+    }
+  }
+}

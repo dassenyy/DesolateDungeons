@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "desolate_dungeons:polished_limestone",
+  "result": {
+    "count": 1,
+    "id": "desolate_dungeons:polished_limestone_stairs"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "h": "desolate_dungeons:khopesh_handle",
+    "m": "minecraft:gold_ingot"
+  },
+  "pattern": [
+    "  m",
+    " mm",
+    "h  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "desolate_dungeons:golden_khopesh"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "values": [
+    "minecraft:grass_block",
+    "desolate_dungeons:polished_limestone",
+    "desolate_dungeons:laterite_bricks",
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    },
+    {
+      "id": "#minecraft:terracotta",
+      "required": false
+    }
+  ]
+}

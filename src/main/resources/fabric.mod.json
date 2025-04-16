@@ -1,0 +1,52 @@
+{
+	"schemaVersion": 1,
+	"id": "desolate_dungeons",
+	"version": "${version}",
+	"name": "Desolate Dungeons",
+	"description": "Desolate Dungeons is a dimension-based adventure mod with roguelike elements.",
+	"authors": [
+		{
+			"name": "dassenyy",
+			"contact": {
+				"email": "pm@dassen.dev",
+				"homepage": "https://dassen.dev/"
+			}
+		}
+	],
+	"contributors": [
+		"ReD8a"
+	],
+	"contact": {
+		"sources": "https://github.com/dassenyy/DesolateDungeons",
+		"issues": "https://github.com/dassenyy/DesolateDungeons/issues"
+	},
+	"license": [
+		"LGPL-3.0-or-later",
+		"CC-BY-SA-4.0"
+	],
+	"icon": "assets/desolate_dungeons/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"dev.dassen.desolatedungeons.DesolateDungeons"
+		],
+		"client": [
+			"dev.dassen.desolatedungeons.DesolateDungeonsClient"
+		],
+		"fabric-datagen": [
+			"dev.dassen.desolatedungeons.DesolateDungeonsDataGenerator"
+		]
+	},
+	"mixins": [
+		"desolate_dungeons.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

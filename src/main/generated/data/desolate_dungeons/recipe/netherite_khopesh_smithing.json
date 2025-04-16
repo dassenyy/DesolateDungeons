@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#minecraft:netherite_tool_materials",
+  "base": "desolate_dungeons:diamond_khopesh",
+  "result": {
+    "count": 1,
+    "id": "desolate_dungeons:netherite_khopesh"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

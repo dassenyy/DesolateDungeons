@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "desolate_dungeons:block/sandstone_bricks",
+    "side": "desolate_dungeons:block/sandstone_bricks",
+    "top": "desolate_dungeons:block/sandstone_bricks"
+  }
+}

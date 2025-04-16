@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "h": "minecraft:stick",
+    "m": "#minecraft:stone_crafting_materials"
+  },
+  "pattern": [
+    "  m",
+    " mm",
+    "h  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "desolate_dungeons:stone_khopesh"
+  }
+}

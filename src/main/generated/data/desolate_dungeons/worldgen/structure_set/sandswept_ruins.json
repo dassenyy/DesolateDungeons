@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 115115114,
+    "separation": 4,
+    "spacing": 16
+  },
+  "structures": [
+    {
+      "structure": "desolate_dungeons:sandswept_ruins",
+      "weight": 1
+    }
+  ]
+}
