@@ -1,6 +1,7 @@
 package dev.dassen.desolatedungeons;
 
 import dev.dassen.desolatedungeons.datagen.*;
+import dev.dassen.desolatedungeons.world.dimension.DesolateDimensions;
 import dev.dassen.desolatedungeons.world.gen.feature.DesolateConfiguredFeatures;
 import dev.dassen.desolatedungeons.world.gen.feature.DesolatePlacedFeatures;
 import dev.dassen.desolatedungeons.world.gen.structure.DesolateStructurePools;
@@ -40,6 +41,8 @@ public class DesolateDungeonsDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.addRegistry(RegistryKeys.STRUCTURE, DesolateStructures::bootstrap);
 		registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, DesolateStructureSets::bootstrap);
 		registryBuilder.addRegistry(RegistryKeys.TEMPLATE_POOL, DesolateStructurePools::bootstrap);
+
+		registryBuilder.addRegistry(RegistryKeys.DIMENSION_TYPE, DesolateDimensions::bootstrapType);
 
 		DataGeneratorEntrypoint.super.buildRegistry(registryBuilder);
 	}

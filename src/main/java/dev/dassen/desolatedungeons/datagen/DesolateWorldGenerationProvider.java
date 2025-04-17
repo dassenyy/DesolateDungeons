@@ -16,9 +16,12 @@ public class DesolateWorldGenerationProvider extends FabricDynamicRegistryProvid
     protected void configure(RegistryWrapper.WrapperLookup registryLookup, Entries entries) {
         entries.addAll(registryLookup.getOrThrow(RegistryKeys.CONFIGURED_FEATURE));
         entries.addAll(registryLookup.getOrThrow(RegistryKeys.PLACED_FEATURE));
+
         entries.addAll(registryLookup.getOrThrow(RegistryKeys.STRUCTURE));
         entries.addAll(registryLookup.getOrThrow(RegistryKeys.STRUCTURE_SET));
         entries.addAll(registryLookup.getOrThrow(RegistryKeys.TEMPLATE_POOL));
+
+        entries.addAll(registryLookup.getOrThrow(RegistryKeys.DIMENSION_TYPE));
     }
 
     @Override
