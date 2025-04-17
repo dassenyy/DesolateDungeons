@@ -11,7 +11,7 @@ public final class DesolateConfiguredFeatureKeys {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_LATERITE = registryKeyOf("ore_laterite");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_LIMESTONE = registryKeyOf("ore_limestone");
 
-    private static RegistryKey<ConfiguredFeature<?, ?>> registryKeyOf(String name) {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(DesolateDungeons.MOD_ID, name));
+    private static RegistryKey<ConfiguredFeature<?, ?>> registryKeyOf(String path) {
+        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(DesolateDungeons.MOD_ID, path));
     }
 }

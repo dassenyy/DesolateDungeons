@@ -16,7 +16,7 @@ public class DesolateStructurePools {
         RegistryEntryLookup<StructurePool> structurePoolRegistryEntryLookup = structurePoolRegisterable.getRegistryLookup(RegistryKeys.TEMPLATE_POOL);
 
         structurePoolRegisterable.register(
-            DesolateStructurePoolKeys.SANDSWEPT_RUINS_KEY,
+            DesolateStructurePoolKeys.SANDSWEPT_RUINS,
             new StructurePool(
                 structurePoolRegistryEntryLookup.getOrThrow(StructurePools.EMPTY),
                 List.of(

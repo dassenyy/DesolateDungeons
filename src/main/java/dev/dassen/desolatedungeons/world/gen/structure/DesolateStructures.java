@@ -47,7 +47,7 @@ public class DesolateStructures {
                         )
                     )
                     .build(),
-                structurePoolRegistryEntryLookup.getOrThrow(DesolateStructurePoolKeys.SANDSWEPT_RUINS_KEY),
+                structurePoolRegistryEntryLookup.getOrThrow(DesolateStructurePoolKeys.SANDSWEPT_RUINS),
                 Optional.empty(),
                 2,
                 ConstantHeightProvider.create(YOffset.fixed(-12)),
