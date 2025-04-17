@@ -30,7 +30,7 @@ public class DesolateItems {
         );
         ANCIENT_TOTEM = registerItem(
             "ancient_totem",
-            new Item(new Item.Settings().rarity(Rarity.RARE).registryKey(itemRegistryKeyOf("ancient_totem")))
+            new AncientTotemItem(new Item.Settings().rarity(Rarity.RARE).registryKey(itemRegistryKeyOf("ancient_totem")))
         );
         KHOPESH_HANDLE = registerItem(
             "khopesh_handle",
