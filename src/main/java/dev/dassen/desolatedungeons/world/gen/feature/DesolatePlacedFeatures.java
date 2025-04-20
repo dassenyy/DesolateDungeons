@@ -1,7 +1,7 @@
 package dev.dassen.desolatedungeons.world.gen.feature;
 
-import dev.dassen.desolatedungeons.registry.key.DesolateConfiguredFeatureKeys;
-import dev.dassen.desolatedungeons.registry.key.DesolatePlacedFeatureKeys;
+import dev.dassen.desolatedungeons.registry.key.ModConfiguredFeatureKeys;
+import dev.dassen.desolatedungeons.registry.key.ModPlacedFeatureKeys;
 import dev.dassen.desolatedungeons.world.gen.placementmodifier.PlacementModifiersBuilder;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -24,16 +24,16 @@ public class DesolatePlacedFeatures {
 
         register(
             placedFeatureRegisterable,
-            DesolatePlacedFeatureKeys.ORE_PERIDOTITE_UPPER,
-            configuredRegistryEntry.getOrThrow(DesolateConfiguredFeatureKeys.ORE_PERIDOTITE),
+            ModPlacedFeatureKeys.ORE_PERIDOTITE_UPPER,
+            configuredRegistryEntry.getOrThrow(ModConfiguredFeatureKeys.ORE_PERIDOTITE),
             PlacementModifiersBuilder
                 .createFromOrePlacementModifiersWithRarity(6, UniformHeightProvider.create(YOffset.fixed(64), YOffset.fixed(128)))
                 .build()
         );
         register(
             placedFeatureRegisterable,
-            DesolatePlacedFeatureKeys.ORE_PERIDOTITE_LOWER,
-            configuredRegistryEntry.getOrThrow(DesolateConfiguredFeatureKeys.ORE_PERIDOTITE),
+            ModPlacedFeatureKeys.ORE_PERIDOTITE_LOWER,
+            configuredRegistryEntry.getOrThrow(ModConfiguredFeatureKeys.ORE_PERIDOTITE),
             PlacementModifiersBuilder
                 .createFromOrePlacementModifiersWithCount(1, UniformHeightProvider.create(YOffset.fixed(0), YOffset.fixed(128)))
                 .build()
@@ -41,8 +41,8 @@ public class DesolatePlacedFeatures {
 
         register(
             placedFeatureRegisterable,
-            DesolatePlacedFeatureKeys.ORE_LATERITE,
-            configuredRegistryEntry.getOrThrow(DesolateConfiguredFeatureKeys.ORE_LATERITE),
+            ModPlacedFeatureKeys.ORE_LATERITE,
+            configuredRegistryEntry.getOrThrow(ModConfiguredFeatureKeys.ORE_LATERITE),
             PlacementModifiersBuilder
                 .createFromOrePlacementModifiersWithCount(4, UniformHeightProvider.create(YOffset.fixed(64), YOffset.fixed(192)))
                 .addSurfaceThreshold(Heightmap.Type.WORLD_SURFACE_WG, -10, -3)
@@ -51,8 +51,8 @@ public class DesolatePlacedFeatures {
 
         register(
             placedFeatureRegisterable,
-            DesolatePlacedFeatureKeys.ORE_LIMESTONE,
-            configuredRegistryEntry.getOrThrow(DesolateConfiguredFeatureKeys.ORE_LIMESTONE),
+            ModPlacedFeatureKeys.ORE_LIMESTONE,
+            configuredRegistryEntry.getOrThrow(ModConfiguredFeatureKeys.ORE_LIMESTONE),
             PlacementModifiersBuilder
                 .createFromOrePlacementModifiersWithCount(2, UniformHeightProvider.create(YOffset.fixed(64), YOffset.fixed(192)))
                 .addModDirectionlessEnvironmentScan(BlockPredicate.IS_AIR, 1)

@@ -3,8 +3,8 @@ package dev.dassen.desolatedungeons.entity;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Dynamic;
 import dev.dassen.desolatedungeons.entity.ai.control.ScarabBeetleMoveControl;
-import dev.dassen.desolatedungeons.entity.data.DesolateTrackedDataHandlerRegistry;
-import dev.dassen.desolatedungeons.registry.tag.DesolateBlockTags;
+import dev.dassen.desolatedungeons.entity.data.ModTrackedDataHandlerRegistry;
+import dev.dassen.desolatedungeons.registry.tag.ModBlockTags;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
@@ -43,7 +43,7 @@ import java.util.function.IntFunction;
 public class ScarabBeetleEntity extends PassiveEntity implements Flutterer {
     protected Brain<ScarabBeetleEntity> brain;
 
-    private static final TrackedData<ScarabBeetleEntity.ControlState> CONTROL_STATE = DataTracker.registerData(ScarabBeetleEntity.class, DesolateTrackedDataHandlerRegistry.SCARAB_BEETLE_CONTROL_STATE);
+    private static final TrackedData<ScarabBeetleEntity.ControlState> CONTROL_STATE = DataTracker.registerData(ScarabBeetleEntity.class, ModTrackedDataHandlerRegistry.SCARAB_BEETLE_CONTROL_STATE);
     private static final TrackedData<Long> CHANGED_CONTROL_STATE_TICK = DataTracker.registerData(ScarabBeetleEntity.class, TrackedDataHandlerRegistry.LONG);
     public final AnimationState idlingAnimationState = new AnimationState();
     public final AnimationState walkingAnimationState = new AnimationState();
@@ -87,7 +87,7 @@ public class ScarabBeetleEntity extends PassiveEntity implements Flutterer {
     @Override
     @Nullable
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return DesolateEntities.SCARAB_BEETLE.create(world, SpawnReason.BREEDING);
+        return ModEntities.SCARAB_BEETLE.create(world, SpawnReason.BREEDING);
     }
 
     // SAVE FILE HANDLING
@@ -229,7 +229,7 @@ public class ScarabBeetleEntity extends PassiveEntity implements Flutterer {
     }
 
     public static boolean canSpawn(EntityType<ScarabBeetleEntity> entity, WorldAccess world, SpawnReason spawnReason, BlockPos position, Random random) {
-        return world.getBlockState(position.down()).isIn(DesolateBlockTags.SCARAB_BEETLES_SPAWNABLE_ON);
+        return world.getBlockState(position.down()).isIn(ModBlockTags.SCARAB_BEETLES_SPAWNABLE_ON);
     }
 
     // ANIMATION

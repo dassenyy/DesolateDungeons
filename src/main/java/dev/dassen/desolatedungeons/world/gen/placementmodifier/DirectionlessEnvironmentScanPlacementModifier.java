@@ -96,6 +96,6 @@ public class DirectionlessEnvironmentScanPlacementModifier extends PlacementModi
 
     @Override
     public PlacementModifierType<?> getType() {
-        return DesolatePlacementModifiers.DIRECTIONLESS_ENVIRONMENT_SCAN;
+        return ModPlacementModifiers.DIRECTIONLESS_ENVIRONMENT_SCAN;
     }
 }

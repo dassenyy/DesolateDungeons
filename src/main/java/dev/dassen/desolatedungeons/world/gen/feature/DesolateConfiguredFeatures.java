@@ -1,7 +1,7 @@
 package dev.dassen.desolatedungeons.world.gen.feature;
 
-import dev.dassen.desolatedungeons.block.DesolateBlocks;
-import dev.dassen.desolatedungeons.registry.key.DesolateConfiguredFeatureKeys;
+import dev.dassen.desolatedungeons.block.ModBlocks;
+import dev.dassen.desolatedungeons.registry.key.ModConfiguredFeatureKeys;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.BlockTags;
@@ -19,23 +19,23 @@ public class DesolateConfiguredFeatures {
 
         register(
             configuredFeatureRegisterable,
-            DesolateConfiguredFeatureKeys.ORE_PERIDOTITE,
+            ModConfiguredFeatureKeys.ORE_PERIDOTITE,
             Feature.ORE,
-            new OreFeatureConfig(baseStoneOverworldTest, DesolateBlocks.PERIDOTITE.getDefaultState(), 64)
+            new OreFeatureConfig(baseStoneOverworldTest, ModBlocks.PERIDOTITE.getDefaultState(), 64)
         );
 
         register(
             configuredFeatureRegisterable,
-            DesolateConfiguredFeatureKeys.ORE_LATERITE,
+            ModConfiguredFeatureKeys.ORE_LATERITE,
             Feature.ORE,
-            new OreFeatureConfig(baseStoneOverworldTest, dev.dassen.desolatedungeons.block.DesolateBlocks.LATERITE.getDefaultState(), 64)
+            new OreFeatureConfig(baseStoneOverworldTest, ModBlocks.LATERITE.getDefaultState(), 64)
         );
 
         register(
             configuredFeatureRegisterable,
-            DesolateConfiguredFeatureKeys.ORE_LIMESTONE,
+            ModConfiguredFeatureKeys.ORE_LIMESTONE,
             Feature.ORE,
-            new OreFeatureConfig(baseStoneOverworldTest, dev.dassen.desolatedungeons.block.DesolateBlocks.LIMESTONE.getDefaultState(), 64)
+            new OreFeatureConfig(baseStoneOverworldTest, ModBlocks.LIMESTONE.getDefaultState(), 64)
         );
     }
 

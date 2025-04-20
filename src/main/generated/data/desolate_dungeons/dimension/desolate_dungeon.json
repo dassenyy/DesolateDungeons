@@ -1,0 +1,11 @@
+{
+  "type": "desolate_dungeons:desolate_dungeon",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "desolate_dungeons:desolate_dungeon"
+    },
+    "settings": "desolate_dungeons:desolate_dungeon"
+  }
+}

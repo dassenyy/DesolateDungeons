@@ -1,11 +1,11 @@
 package dev.dassen.desolatedungeons;
 
-import dev.dassen.desolatedungeons.block.DesolateBlocks;
-import dev.dassen.desolatedungeons.entity.DesolateEntities;
-import dev.dassen.desolatedungeons.item.DesolateItemGroups;
-import dev.dassen.desolatedungeons.item.DesolateItems;
-import dev.dassen.desolatedungeons.world.gen.DesolateWorldGeneration;
-import dev.dassen.desolatedungeons.world.gen.placementmodifier.DesolatePlacementModifiers;
+import dev.dassen.desolatedungeons.block.ModBlocks;
+import dev.dassen.desolatedungeons.entity.ModEntities;
+import dev.dassen.desolatedungeons.item.ModItemGroups;
+import dev.dassen.desolatedungeons.item.ModItems;
+import dev.dassen.desolatedungeons.world.gen.ModWorldGeneration;
+import dev.dassen.desolatedungeons.world.gen.placementmodifier.ModPlacementModifiers;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,13 +18,13 @@ public class DesolateDungeons implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Initializing Desolate Dungeons mod");
 
-		DesolatePlacementModifiers.register();
-		DesolateWorldGeneration.initialize();
+		ModPlacementModifiers.register();
+		ModWorldGeneration.initialize();
 
-		DesolateEntities.register();
+		ModEntities.register();
 
-		DesolateItemGroups.register();
-		DesolateItems.register();
-		DesolateBlocks.register();
+		ModItemGroups.register();
+		ModItems.register();
+		ModBlocks.register();
 	}
 }
