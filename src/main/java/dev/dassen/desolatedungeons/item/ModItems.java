@@ -30,7 +30,7 @@ public class ModItems {
         );
         ANCIENT_TOTEM = registerItem(
             "ancient_totem",
-            new AncientTotemItem(new Item.Settings().rarity(Rarity.RARE).registryKey(itemRegistryKeyOf("ancient_totem")))
+            new AncientTotemItem(new Item.Settings().rarity(Rarity.RARE).maxCount(1).registryKey(itemRegistryKeyOf("ancient_totem")))
         );
         KHOPESH_HANDLE = registerItem(
             "khopesh_handle",
