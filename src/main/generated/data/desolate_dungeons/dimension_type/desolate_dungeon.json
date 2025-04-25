@@ -1,10 +1,10 @@
 {
-  "ambient_light": 0.2,
+  "ambient_light": 0.15,
   "bed_works": false,
   "coordinate_scale": 1.0,
-  "effects": "minecraft:the_nether",
+  "effects": "desolate_dungeons:desolate_dungeon",
   "fixed_time": 18000,
-  "has_ceiling": true,
+  "has_ceiling": false,
   "has_raids": false,
   "has_skylight": false,
   "height": 512,

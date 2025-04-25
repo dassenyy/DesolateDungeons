@@ -37,7 +37,7 @@ public class ModBiomes {
                 new BiomeEffects.Builder()
                     .waterColor(4159204)
                     .waterFogColor(329011)
-                    .fogColor(3344392)
+                    .fogColor(0xA85808)
                     .skyColor(OverworldBiomeCreator.getSkyColor(2.0F))
                     .loopSound(SoundEvents.AMBIENT_NETHER_WASTES_LOOP)
                     .moodSound(new BiomeMoodSound(SoundEvents.AMBIENT_NETHER_WASTES_MOOD, 6000, 8, 2.0))

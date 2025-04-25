@@ -2,8 +2,10 @@ package dev.dassen.desolatedungeons;
 
 import dev.dassen.desolatedungeons.client.render.entity.ScarabBeetleEntityRenderer;
 import dev.dassen.desolatedungeons.client.render.entity.model.ScarabBeetleEntityModel;
+import dev.dassen.desolatedungeons.client.render.world.DesolateDungeonDimensionEffect;
 import dev.dassen.desolatedungeons.entity.ModEntities;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 
@@ -12,5 +14,7 @@ public class DesolateDungeonsClient implements ClientModInitializer {
     public void onInitializeClient() {
         EntityModelLayerRegistry.registerModelLayer(ScarabBeetleEntityModel.SCARAB_BEETLE, ScarabBeetleEntityModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.SCARAB_BEETLE, ScarabBeetleEntityRenderer::new);
+
+        DimensionRenderingRegistry.registerDimensionEffects(DesolateDungeonDimensionEffect.IDENTIFIER, new DesolateDungeonDimensionEffect());
     }
 }

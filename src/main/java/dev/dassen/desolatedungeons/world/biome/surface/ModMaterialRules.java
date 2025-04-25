@@ -12,7 +12,8 @@ public class ModMaterialRules {
     private static final MaterialRules.MaterialRule BEDROCK = makeStateRule(Blocks.BEDROCK);
     private static final MaterialRules.MaterialRule LATERITE_BRICKS = makeStateRule(ModBlocks.LATERITE_BRICKS);
     private static final MaterialRules.MaterialRule LIMESTONE = makeStateRule(ModBlocks.LIMESTONE);
-    private static final MaterialRules.MaterialRule PERIDOTITE = makeStateRule(ModBlocks.PERIDOTITE);
+    private static final MaterialRules.MaterialRule DIRT = makeStateRule(Blocks.DIRT);
+    private static final MaterialRules.MaterialRule GRASS_BLOCK = makeStateRule(Blocks.GRASS_BLOCK);
 
     public static MaterialRules.MaterialRule createDesolateDungeon() {
         ImmutableList.Builder<MaterialRules.MaterialRule> materialRuleBuilder = ImmutableList.builder();
@@ -24,11 +25,20 @@ public class ModMaterialRules {
             )
         );
         materialRuleBuilder.add(
-            MaterialRules.condition(
-                MaterialRules.aboveY(YOffset.fixed(256), 0),
+            MaterialRules.sequence(
                 MaterialRules.condition(
-                    MaterialRules.stoneDepth(0, true, 3, VerticalSurfaceType.FLOOR),
-                    PERIDOTITE
+                    MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR),
+                    MaterialRules.sequence(
+                        MaterialRules.condition(
+                            MaterialRules.water(0, 0),
+                            GRASS_BLOCK
+                        ),
+                        DIRT
+                    )
+                ),
+                MaterialRules.condition(
+                    MaterialRules.stoneDepth(0, true,0, VerticalSurfaceType.FLOOR),
+                    DIRT
                 )
             )
         );

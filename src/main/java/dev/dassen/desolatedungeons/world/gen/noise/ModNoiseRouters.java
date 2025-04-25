@@ -37,7 +37,7 @@ public class ModNoiseRouters {
                 ),
                 DensityFunctionTypes.add(
                     DensityFunctionTypes.yClampedGradient(256, 383, 1d, -1d),
-                    DensityFunctionTypes.noise(noiseParametersLookup.getOrThrow(NoiseParametersKeys.GRAVEL))
+                    DensityFunctionTypes.noise(noiseParametersLookup.getOrThrow(NoiseParametersKeys.EROSION)).clamp(-0.25f, 0.25f)
                 )
             )
         );
@@ -55,9 +55,9 @@ public class ModNoiseRouters {
             DensityFunctionTypes.zero(),            /* 10: ridges                           (Biome placement only) */
             DensityFunctionTypes.zero(),            /* 11: initialDensityWithoutJaggedness  (Surface rules / Aquifers) */
             finalDensity,                           /* 12: finalDensity                     (Main density function) */
-            DensityFunctionTypes.zero(),            /* 13: veinToggle                       (Ore vein control) */
-            DensityFunctionTypes.zero(),            /* 14: veinRidged                       (Ore vein control) */
-            DensityFunctionTypes.zero()             /* 15: veinGap                          (Ore vein control) */
+            DensityFunctionTypes.zero(),            /* 13: veinToggle                       (Large ore vein control) */
+            DensityFunctionTypes.zero(),            /* 14: veinRidged                       (Large ore vein control) */
+            DensityFunctionTypes.zero()             /* 15: veinGap                          (Large ore vein control) */
         );
     }
 }
