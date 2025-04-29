@@ -25,20 +25,23 @@ public class ModMaterialRules {
             )
         );
         materialRuleBuilder.add(
-            MaterialRules.sequence(
-                MaterialRules.condition(
-                    MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR),
-                    MaterialRules.sequence(
-                        MaterialRules.condition(
-                            MaterialRules.water(0, 0),
-                            GRASS_BLOCK
-                        ),
+            MaterialRules.condition(
+                MaterialRules.aboveY(YOffset.fixed(255), 0),
+                MaterialRules.sequence(
+                    MaterialRules.condition(
+                        MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR),
+                        MaterialRules.sequence(
+                            MaterialRules.condition(
+                                MaterialRules.water(0, 0),
+                                GRASS_BLOCK
+                            ),
+                            DIRT
+                        )
+                    ),
+                    MaterialRules.condition(
+                        MaterialRules.stoneDepth(0, true,0, VerticalSurfaceType.FLOOR),
                         DIRT
                     )
-                ),
-                MaterialRules.condition(
-                    MaterialRules.stoneDepth(0, true,0, VerticalSurfaceType.FLOOR),
-                    DIRT
                 )
             )
         );
