@@ -1,15 +1,18 @@
 package dev.dassen.desolatedungeons.mixin;
 
-import dev.dassen.desolatedungeons.DesolateDungeons;
 import dev.dassen.desolatedungeons.entity.data.PersistentDataSaver;
+import dev.dassen.desolatedungeons.networking.packet.LevelUpPayload;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@SuppressWarnings("unused")
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin implements PersistentDataSaver {
     private NbtCompound persistentData;
@@ -46,5 +49,12 @@ public abstract class PlayerEntityMixin implements PersistentDataSaver {
         if (this.persistentData != null) {
             nbt.put("DesolateDungeon", this.persistentData);
         }
+    }
+
+    @Inject(method = "addExperienceLevels(I)V", at = @At("TAIL"))
+    public void onPlayerLevelUp(int level, CallbackInfo ci) {
+        //noinspection DataFlowIssue
+        ServerPlayerEntity thisServerPlayer = ((ServerPlayerEntity) (Object) this);
+        ServerPlayNetworking.send(thisServerPlayer, new LevelUpPayload(level, thisServerPlayer.experienceLevel));
     }
 }

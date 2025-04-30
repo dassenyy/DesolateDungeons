@@ -12,10 +12,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@SuppressWarnings("unused")
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin {
     @Inject(method = "worldChanged(Lnet/minecraft/server/world/ServerWorld;)V", at = @At("HEAD"))
     public void handleDesolateDungeonDimensionTravel(ServerWorld originWorld, CallbackInfo info) {
+        //noinspection DataFlowIssue
         ServerPlayerEntity thisPlayer = ((ServerPlayerEntity) (Object) this);
         PersistentDataSaver thisPlayerDataSaver = ((PersistentDataSaver) thisPlayer);
 
