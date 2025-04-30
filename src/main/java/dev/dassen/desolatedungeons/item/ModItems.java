@@ -2,6 +2,7 @@ package dev.dassen.desolatedungeons.item;
 
 import dev.dassen.desolatedungeons.DesolateDungeons;
 import dev.dassen.desolatedungeons.entity.ModEntities;
+import dev.dassen.desolatedungeons.item.custom.AncientTotemItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;

@@ -1,4 +1,4 @@
-package dev.dassen.desolatedungeons.client.render.world;
+package dev.dassen.desolatedungeons.client.render.dimension;
 
 import dev.dassen.desolatedungeons.DesolateDungeons;
 import net.minecraft.client.render.DimensionEffects;

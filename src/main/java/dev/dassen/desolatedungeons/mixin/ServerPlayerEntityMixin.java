@@ -1,7 +1,7 @@
 package dev.dassen.desolatedungeons.mixin;
 
+import dev.dassen.desolatedungeons.entity.data.PersistentDataSaver;
 import dev.dassen.desolatedungeons.entity.player.CrossDimensionalPlayerStateManager;
-import dev.dassen.desolatedungeons.util.PersistentDataSaver;
 import dev.dassen.desolatedungeons.registry.key.ModWorldKeys;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;

@@ -1,6 +1,6 @@
 package dev.dassen.desolatedungeons.world.dimension;
 
-import dev.dassen.desolatedungeons.client.render.world.DesolateDungeonDimensionEffect;
+import dev.dassen.desolatedungeons.client.render.dimension.DesolateDungeonDimensionEffect;
 import dev.dassen.desolatedungeons.registry.key.ModDimensionTypeKeys;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.tag.BlockTags;

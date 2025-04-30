@@ -1,4 +1,4 @@
-package dev.dassen.desolatedungeons.item;
+package dev.dassen.desolatedungeons.item.custom;
 
 import dev.dassen.desolatedungeons.DesolateDungeons;
 import dev.dassen.desolatedungeons.registry.key.ModWorldKeys;
