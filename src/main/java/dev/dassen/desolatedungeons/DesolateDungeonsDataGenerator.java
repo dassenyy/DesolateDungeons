@@ -15,6 +15,7 @@ import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.dimension.DimensionOptions;
 
+@SuppressWarnings("unused")
 public class DesolateDungeonsDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
@@ -39,6 +40,8 @@ public class DesolateDungeonsDataGenerator implements DataGeneratorEntrypoint {
 			(output, registryLookupFuture)
 				-> new ModDimensionOptionsProvider(output, registryLookupFuture, RegistryKeys.DIMENSION, DimensionOptions.CODEC)
 		);
+
+		pack.addProvider(AugmentProvider::new);
 	}
 
 	@Override

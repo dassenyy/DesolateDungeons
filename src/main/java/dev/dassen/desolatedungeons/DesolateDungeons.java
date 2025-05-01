@@ -5,6 +5,7 @@ import dev.dassen.desolatedungeons.entity.ModEntities;
 import dev.dassen.desolatedungeons.item.ModItemGroups;
 import dev.dassen.desolatedungeons.item.ModItems;
 import dev.dassen.desolatedungeons.networking.ModPackets;
+import dev.dassen.desolatedungeons.registry.ModDynamicRegistries;
 import dev.dassen.desolatedungeons.world.gen.ModWorldGeneration;
 import dev.dassen.desolatedungeons.world.gen.placementmodifier.ModPlacementModifiers;
 import net.fabricmc.api.ModInitializer;
@@ -18,6 +19,8 @@ public class DesolateDungeons implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing Desolate Dungeons mod");
+
+		ModDynamicRegistries.register();
 
 		ModPlacementModifiers.register();
 		ModWorldGeneration.initialize();
