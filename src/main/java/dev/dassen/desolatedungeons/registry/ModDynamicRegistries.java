@@ -9,6 +9,6 @@ public class ModDynamicRegistries {
     public static void register() {
         DesolateDungeons.LOGGER.info("Registering Dynamic Registries for " + DesolateDungeons.MOD_ID);
 
-        DynamicRegistries.register(ModDynamicRegistryKeys.AUGMENT, Augment.CODEC);
+        DynamicRegistries.registerSynced(ModDynamicRegistryKeys.AUGMENT, Augment.CODEC);
     }
 }

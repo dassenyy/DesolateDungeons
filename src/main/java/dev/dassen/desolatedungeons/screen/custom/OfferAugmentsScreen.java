@@ -1,5 +1,8 @@
 package dev.dassen.desolatedungeons.screen.custom;
 
+import dev.dassen.desolatedungeons.augment.Augment;
+import dev.dassen.desolatedungeons.networking.packet.AugmentChoicePayload;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
@@ -9,22 +12,25 @@ import net.minecraft.client.gui.widget.PressableWidget;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class LevelUpScreen extends Screen {
-    public static final Identifier GUI_TEXTURE = Identifier.of("desolate_dungeons:textures/gui/level_up.png");
-    public static final Identifier BUTTON_DISABLED_TEXTURE = Identifier.of("desolate_dungeons:container/level_up/button");
-    public static final Identifier BUTTON_HIGHLIGHTED_TEXTURE = Identifier.of("desolate_dungeons:container/level_up/button");
-    public static final Identifier BUTTON_TEXTURE = Identifier.of("desolate_dungeons:container/level_up/button");
+public class OfferAugmentsScreen extends Screen {
+    public static final Identifier GUI_TEXTURE = Identifier.of("desolate_dungeons:textures/gui/offer_augments.png");
+    public static final Identifier BUTTON_DISABLED_TEXTURE = Identifier.of("desolate_dungeons:container/offer_augments/button");
+    public static final Identifier BUTTON_HIGHLIGHTED_TEXTURE = Identifier.of("desolate_dungeons:container/offer_augments/button");
+    public static final Identifier BUTTON_TEXTURE = Identifier.of("desolate_dungeons:container/offer_augments/button");
     private static final int BACKGROUND_WIDTH = 182;
     private static final int BACKGROUND_HEIGHT = 88;
     private static final int BUTTON_SIZE = 20;
+    private final RegistryEntry<Augment>[] augments;
 
-    public LevelUpScreen() {
-        super(Text.literal("Level Up"));
+    public OfferAugmentsScreen(RegistryEntry<Augment>[] augments) {
+        super(Text.literal("Pick an augment"));
+        this.augments = augments;
     }
 
     @Override
@@ -53,9 +59,9 @@ public class LevelUpScreen extends Screen {
         int x = (this.width - BACKGROUND_WIDTH) / 2;
         int y = ((this.height - BACKGROUND_HEIGHT) / 2);
 
-        addButton(new AugmentButtonWidget(x + 42, y + 44, new ItemStack(Items.PUFFERFISH)));
-        addButton(new AugmentButtonWidget(x + 91, y + 44, new ItemStack(Items.PUFFERFISH)));
-        addButton(new AugmentButtonWidget(x + 140, y + 44, new ItemStack(Items.PUFFERFISH)));
+        addButton(new AugmentButtonWidget(x + 42, y + 44, new ItemStack(Items.PUFFERFISH), augments[0]));
+        addButton(new AugmentButtonWidget(x + 91, y + 44, new ItemStack(Items.PUFFERFISH), augments[1]));
+        addButton(new AugmentButtonWidget(x + 140, y + 44, new ItemStack(Items.PUFFERFISH), augments[2]));
     }
 
     private <T extends ClickableWidget> void addButton(T button) {
@@ -98,12 +104,14 @@ public class LevelUpScreen extends Screen {
         int xCenter;
         int yCenter;
         ItemStack augmentItem;
+        RegistryEntry<Augment> augment;
 
-        public AugmentButtonWidget(int xCenter, int yCenter, ItemStack itemStack) {
+        public AugmentButtonWidget(int xCenter, int yCenter, ItemStack itemStack, RegistryEntry<Augment> augment) {
             super((xCenter - (BUTTON_SIZE / 2)), (yCenter - (BUTTON_SIZE / 2)));
             this.xCenter = xCenter;
             this.yCenter = yCenter;
             augmentItem = itemStack;
+            this.augment = augment;
             init();
         }
 
@@ -112,11 +120,13 @@ public class LevelUpScreen extends Screen {
         }
 
         protected MutableText getAugmentName() {
-            return Text.literal("Random Augment Name Example");
+            return Text.literal(augment.value().name);
         }
 
         @Override
         public void onPress() {
+            ClientPlayNetworking.send(new AugmentChoicePayload(this.augment));
+            OfferAugmentsScreen.this.close();
         }
 
         @Override

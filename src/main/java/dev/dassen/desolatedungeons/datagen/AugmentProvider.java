@@ -16,6 +16,8 @@ public class AugmentProvider extends FabricDynamicRegistryProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
         entries.add(AugmentKeys.EMERGENCY_PUFFERFISH, new Augment("Emergency Pufferfish"));
+        entries.add(AugmentKeys.DAMAGE, new Augment("Damage"));
+        entries.add(AugmentKeys.SPEED, new Augment("Speed"));
     }
 
     @Override

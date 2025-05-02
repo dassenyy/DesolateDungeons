@@ -1,4 +1,4 @@
-package dev.dassen.desolatedungeons.entity.data;
+package dev.dassen.desolatedungeons.impl.entity;
 
 import net.minecraft.nbt.NbtCompound;
 
