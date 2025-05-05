@@ -1,3 +1,7 @@
 {
-  "name": "Emergency Pufferfish"
+  "name": "Emergency Pufferfish",
+  "on_grant_function": {
+    "type": "desolate_dungeons:increase_damage",
+    "amount": 2
+  }
 }

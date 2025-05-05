@@ -1,3 +1,7 @@
 {
-  "name": "Speed"
+  "name": "Speed",
+  "on_grant_function": {
+    "type": "desolate_dungeons:increase_damage",
+    "amount": 2
+  }
 }

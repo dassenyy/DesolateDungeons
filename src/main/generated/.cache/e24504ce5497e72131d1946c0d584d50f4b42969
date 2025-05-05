@@ -1,4 +1,5 @@
 // 1.21.4	-999999999-01-01T00:00:00	Desolate Dungeons/AugmentProvider
-82609ded2759bc614b3b51ea73b0ea9f58fb459a data/desolate_dungeons/desolate_dungeons/augment/damage.json
-e37b89739d6c9a866ba2b80971d54a603c58baf7 data/desolate_dungeons/desolate_dungeons/augment/emergency_pufferfish.json
-06d15e75fdfa26af065339a3df053f62818fc03c data/desolate_dungeons/desolate_dungeons/augment/speed.json
+9dede872a95fbd123548b2bfb85341a76b8646b7 data/desolate_dungeons/desolate_dungeons/augment/damage.json
+fd01aa5e60b8d839b1497f18ba9ec5a342ac1d34 data/desolate_dungeons/desolate_dungeons/augment/emergency_pufferfish.json
+e5d396a3576bfc8c27ecbeec72e2e8aec90414d6 data/desolate_dungeons/desolate_dungeons/augment/empty.json
+172fc6a216e483ca8688b9d0134921e9fd783509 data/desolate_dungeons/desolate_dungeons/augment/speed.json

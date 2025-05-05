@@ -1,6 +1,6 @@
 package dev.dassen.desolatedungeons.datagen;
 
-import dev.dassen.desolatedungeons.augment.Augment;
+import dev.dassen.desolatedungeons.augment.Augments;
 import dev.dassen.desolatedungeons.registry.key.AugmentKeys;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
@@ -15,9 +15,10 @@ public class AugmentProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.add(AugmentKeys.EMERGENCY_PUFFERFISH, new Augment("Emergency Pufferfish"));
-        entries.add(AugmentKeys.DAMAGE, new Augment("Damage"));
-        entries.add(AugmentKeys.SPEED, new Augment("Speed"));
+        entries.add(AugmentKeys.EMPTY, Augments.EMPTY);
+        entries.add(AugmentKeys.EMERGENCY_PUFFERFISH, Augments.EMERGENCY_PUFFERFISH);
+        entries.add(AugmentKeys.DAMAGE, Augments.DAMAGE);
+        entries.add(AugmentKeys.SPEED, Augments.SPEED);
     }
 
     @Override

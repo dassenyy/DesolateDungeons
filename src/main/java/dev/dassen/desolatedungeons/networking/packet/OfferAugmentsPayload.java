@@ -1,18 +1,13 @@
 package dev.dassen.desolatedungeons.networking.packet;
 
-import com.nimbusds.oauth2.sdk.id.Identifier;
 import dev.dassen.desolatedungeons.augment.Augment;
 import dev.dassen.desolatedungeons.networking.packet.s2c.OfferAugmentsS2CPacket;
-import dev.dassen.desolatedungeons.registry.key.ModDynamicRegistryKeys;
+import dev.dassen.desolatedungeons.registry.key.ModRegistryKeys;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
-
-import java.util.List;
 
 public record OfferAugmentsPayload(
     int addedLevel,
@@ -25,9 +20,9 @@ public record OfferAugmentsPayload(
     public static final PacketCodec<RegistryByteBuf, OfferAugmentsPayload> CODEC = PacketCodec.tuple(
         PacketCodecs.INTEGER, OfferAugmentsPayload::addedLevel,
         PacketCodecs.INTEGER, OfferAugmentsPayload::currentLevel,
-        PacketCodecs.registryEntry(ModDynamicRegistryKeys.AUGMENT), OfferAugmentsPayload::firstAugment,
-        PacketCodecs.registryEntry(ModDynamicRegistryKeys.AUGMENT), OfferAugmentsPayload::secondAugment,
-        PacketCodecs.registryEntry(ModDynamicRegistryKeys.AUGMENT), OfferAugmentsPayload::thirdAugment,
+        PacketCodecs.registryEntry(ModRegistryKeys.AUGMENT), OfferAugmentsPayload::firstAugment,
+        PacketCodecs.registryEntry(ModRegistryKeys.AUGMENT), OfferAugmentsPayload::secondAugment,
+        PacketCodecs.registryEntry(ModRegistryKeys.AUGMENT), OfferAugmentsPayload::thirdAugment,
         OfferAugmentsPayload::new
     );
 

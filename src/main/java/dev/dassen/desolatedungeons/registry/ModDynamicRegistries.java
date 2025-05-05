@@ -2,13 +2,13 @@ package dev.dassen.desolatedungeons.registry;
 
 import dev.dassen.desolatedungeons.DesolateDungeons;
 import dev.dassen.desolatedungeons.augment.Augment;
-import dev.dassen.desolatedungeons.registry.key.ModDynamicRegistryKeys;
+import dev.dassen.desolatedungeons.registry.key.ModRegistryKeys;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 
 public class ModDynamicRegistries {
     public static void register() {
         DesolateDungeons.LOGGER.info("Registering Dynamic Registries for " + DesolateDungeons.MOD_ID);
 
-        DynamicRegistries.registerSynced(ModDynamicRegistryKeys.AUGMENT, Augment.CODEC);
+        DynamicRegistries.registerSynced(ModRegistryKeys.AUGMENT, Augment.CODEC);
     }
 }
