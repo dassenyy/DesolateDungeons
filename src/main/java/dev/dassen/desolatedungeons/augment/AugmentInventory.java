@@ -1,6 +1,7 @@
 package dev.dassen.desolatedungeons.augment;
 
 import dev.dassen.desolatedungeons.DesolateDungeons;
+import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
 import dev.dassen.desolatedungeons.networking.packet.OfferAugmentsPayload;
 import dev.dassen.desolatedungeons.registry.key.ModRegistryKeys;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -16,8 +17,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class AugmentInventory {
+    // Both inventory and offered need to be reworked to contain some sort of "AugmentStack" instead, similar to ItemStack
     private final List<Augment> inventory = new ArrayList<>();
-    private final DefaultedList<Augment> offered = DefaultedList.ofSize(3, Augments.EMPTY);
+    private final DefaultedList<Augment> offered = DefaultedList.ofSize(3, Augments.DAMAGE);
     public final PlayerEntity player;
 
     public AugmentInventory(PlayerEntity player) {
@@ -60,5 +62,11 @@ public class AugmentInventory {
         }
 
         add(augment);
+    }
+
+    public void tickAugments() {
+        for (Augment augment : inventory) {
+            augment.augmentFunction.run(new AugmentFunctionContext(augment, player, player.getWorld()));
+        }
     }
 }

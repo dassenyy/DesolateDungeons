@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin implements PersistentDataSaver, AugmentImpl {
     private NbtCompound persistentData;
-    final private AugmentInventory augmentInventory = new AugmentInventory((PlayerEntity) (Object) this);
+    private final AugmentInventory augmentInventory = new AugmentInventory((PlayerEntity) (Object) this);
 
     @Override
     public NbtCompound getPersistentData() {
@@ -41,6 +41,11 @@ public abstract class PlayerEntityMixin implements PersistentDataSaver, AugmentI
     @Override
     public AugmentInventory getAugmentInventory() {
         return augmentInventory;
+    }
+
+    @Inject(method = "tick()V", at = @At("HEAD"))
+    public void tick(CallbackInfo ci) {
+        augmentInventory.tickAugments();
     }
 
     @Inject(method = "readCustomDataFromNbt(Lnet/minecraft/nbt/NbtCompound;)V", at = @At("HEAD"))

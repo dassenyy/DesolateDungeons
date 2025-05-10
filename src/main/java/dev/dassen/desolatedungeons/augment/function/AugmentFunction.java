@@ -9,4 +9,8 @@ public interface AugmentFunction {
         .dispatch("type", AugmentFunction::getType, AugmentFunctionType::codec);
 
     @NotNull AugmentFunctionType<?> getType();
+
+    void run(AugmentFunctionContext context);
+
+    void pass(AugmentFunctionContext context);
 }

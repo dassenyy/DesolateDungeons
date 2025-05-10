@@ -1,7 +1,10 @@
 {
-  "name": "Damage",
-  "on_grant_function": {
-    "type": "desolate_dungeons:increase_damage",
-    "amount": 2
-  }
+  "augment_function": {
+    "type": "desolate_dungeons:entity_attribute_modification",
+    "amount": 2.0,
+    "attribute": "minecraft:attack_damage",
+    "attributeModifierIdentifier": "desolate_dungeons:damage_augment_function",
+    "operation": "add_value"
+  },
+  "name": "Damage"
 }

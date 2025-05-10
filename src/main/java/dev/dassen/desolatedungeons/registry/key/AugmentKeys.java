@@ -5,8 +5,7 @@ import dev.dassen.desolatedungeons.augment.Augment;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 
-public class AugmentKeys {
-    public static final RegistryKey<Augment> EMPTY = registryKeyOf("empty");
+public final class AugmentKeys {
     public static final RegistryKey<Augment> EMERGENCY_PUFFERFISH = registryKeyOf("emergency_pufferfish");
     public static final RegistryKey<Augment> DAMAGE = registryKeyOf("damage");
     public static final RegistryKey<Augment> SPEED = registryKeyOf("speed");

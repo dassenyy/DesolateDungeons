@@ -1,7 +1,10 @@
 {
-  "name": "Speed",
-  "on_grant_function": {
-    "type": "desolate_dungeons:increase_damage",
-    "amount": 2
-  }
+  "augment_function": {
+    "type": "desolate_dungeons:entity_attribute_modification",
+    "amount": 0.5,
+    "attribute": "minecraft:movement_speed",
+    "attributeModifierIdentifier": "desolate_dungeons:speed_augment_function",
+    "operation": "add_multiplied_base"
+  },
+  "name": "Speed"
 }

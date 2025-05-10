@@ -15,7 +15,6 @@ public class AugmentProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.add(AugmentKeys.EMPTY, Augments.EMPTY);
         entries.add(AugmentKeys.EMERGENCY_PUFFERFISH, Augments.EMERGENCY_PUFFERFISH);
         entries.add(AugmentKeys.DAMAGE, Augments.DAMAGE);
         entries.add(AugmentKeys.SPEED, Augments.SPEED);

@@ -6,7 +6,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class AugmentFunctionTypes {
-    public static final AugmentFunctionType<IncreaseDamageAugmentFunction> INCREASE_DAMAGE = registerAugmentFunctionType("increase_damage", new AugmentFunctionType<>(IncreaseDamageAugmentFunction.CODEC));
+    public static final AugmentFunctionType<EntityAttributeModificationAugmentFunction> ENTITY_ATTRIBUTE_MODIFICATION =
+        registerAugmentFunctionType("entity_attribute_modification", new AugmentFunctionType<>(EntityAttributeModificationAugmentFunction.CODEC));
 
     public static void register() {
         DesolateDungeons.LOGGER.info("Registering Augment Function Types for " + DesolateDungeons.MOD_ID);
