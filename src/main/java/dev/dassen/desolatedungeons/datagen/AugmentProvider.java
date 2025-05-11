@@ -18,6 +18,7 @@ public class AugmentProvider extends FabricDynamicRegistryProvider {
         entries.add(AugmentKeys.EMERGENCY_PUFFERFISH, Augments.EMERGENCY_PUFFERFISH);
         entries.add(AugmentKeys.DAMAGE, Augments.DAMAGE);
         entries.add(AugmentKeys.SPEED, Augments.SPEED);
+        entries.add(AugmentKeys.MINER_MANIA, Augments.MINER_MANIA);
     }
 
     @Override

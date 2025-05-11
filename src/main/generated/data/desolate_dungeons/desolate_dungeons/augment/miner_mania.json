@@ -1,0 +1,20 @@
+{
+  "augment_function": {
+    "type": "desolate_dungeons:condition",
+    "augment_condition": {
+      "type": "desolate_dungeons:y_coordinate_in_between",
+      "y_coordinate_int_provider": {
+        "max_inclusive": 192,
+        "min_inclusive": 0
+      }
+    },
+    "augment_function": {
+      "type": "desolate_dungeons:attribute_modification",
+      "amount": 0.5,
+      "attribute": "minecraft:block_break_speed",
+      "attributeModifierIdentifier": "desolate_dungeons:miner_mania_augment_function",
+      "operation": "add_multiplied_base"
+    }
+  },
+  "name": "Miner Mania"
+}

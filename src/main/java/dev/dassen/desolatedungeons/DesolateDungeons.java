@@ -1,5 +1,6 @@
 package dev.dassen.desolatedungeons;
 
+import dev.dassen.desolatedungeons.augment.condition.AugmentConditionTypes;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import dev.dassen.desolatedungeons.block.ModBlocks;
 import dev.dassen.desolatedungeons.entity.ModEntities;
@@ -35,6 +36,7 @@ public class DesolateDungeons implements ModInitializer {
 		ModBlocks.register();
 
 		AugmentFunctionTypes.register();
+		AugmentConditionTypes.register();
 
 		ModPackets.registerC2S();
 	}

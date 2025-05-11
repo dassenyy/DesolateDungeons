@@ -1,8 +1,12 @@
-package dev.dassen.desolatedungeons.augment.function;
+package dev.dassen.desolatedungeons.augment.function.types;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
+import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
+import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
+import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -10,14 +14,14 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-public class EntityAttributeModificationAugmentFunction implements AugmentFunction {
-    public static final MapCodec<EntityAttributeModificationAugmentFunction> CODEC = RecordCodecBuilder.mapCodec(
+public class AttributeModificationAugmentFunction implements AugmentFunction {
+    public static final MapCodec<AttributeModificationAugmentFunction> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             EntityAttribute.CODEC.fieldOf("attribute").forGetter(augmentFunction -> augmentFunction.attribute),
             Identifier.CODEC.fieldOf("attributeModifierIdentifier").forGetter(augmentFunction -> augmentFunction.attributeModifierIdentifier),
             EntityAttributeModifier.Operation.CODEC.fieldOf("operation").forGetter(augmentFunction -> augmentFunction.operation),
             Codec.DOUBLE.fieldOf("amount").forGetter(augmentFunction -> augmentFunction.amount)
-        ).apply(instance, EntityAttributeModificationAugmentFunction::new)
+        ).apply(instance, AttributeModificationAugmentFunction::new)
     );
 
     private final RegistryEntry<EntityAttribute> attribute;
@@ -26,7 +30,7 @@ public class EntityAttributeModificationAugmentFunction implements AugmentFuncti
     private final double amount;
 
 
-    public EntityAttributeModificationAugmentFunction(RegistryEntry<EntityAttribute> attribute, Identifier attributeModifierIdentifier, EntityAttributeModifier.Operation operation, double amount) {
+    public AttributeModificationAugmentFunction(RegistryEntry<EntityAttribute> attribute, Identifier attributeModifierIdentifier, EntityAttributeModifier.Operation operation, double amount) {
         this.attribute = attribute;
         this.attributeModifierIdentifier = attributeModifierIdentifier;
         this.operation = operation;
@@ -35,7 +39,7 @@ public class EntityAttributeModificationAugmentFunction implements AugmentFuncti
 
     @Override
     public @NotNull AugmentFunctionType<?> getType() {
-        return AugmentFunctionTypes.ENTITY_ATTRIBUTE_MODIFICATION;
+        return AugmentFunctionTypes.ATTRIBUTE_MODIFICATION;
     }
 
     @Override
