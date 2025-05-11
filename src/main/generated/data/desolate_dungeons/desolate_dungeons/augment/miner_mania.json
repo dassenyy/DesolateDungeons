@@ -9,11 +9,23 @@
       }
     },
     "augment_function": {
-      "type": "desolate_dungeons:attribute_modification",
-      "amount": 0.5,
-      "attribute": "minecraft:block_break_speed",
-      "attributeModifierIdentifier": "desolate_dungeons:miner_mania_augment_function",
-      "operation": "add_multiplied_base"
+      "type": "desolate_dungeons:sequence",
+      "sequence": [
+        {
+          "type": "desolate_dungeons:attribute_modification",
+          "amount": 0.5,
+          "attribute": "minecraft:block_break_speed",
+          "attributeModifierIdentifier": "desolate_dungeons:augment_function_miner_mania_block_break_speed",
+          "operation": "add_multiplied_base"
+        },
+        {
+          "type": "desolate_dungeons:attribute_modification",
+          "amount": 1.0,
+          "attribute": "minecraft:block_interaction_range",
+          "attributeModifierIdentifier": "desolate_dungeons:augment_function_miner_mania_block_interaction_range",
+          "operation": "add_value"
+        }
+      ]
     }
   },
   "name": "Miner Mania"

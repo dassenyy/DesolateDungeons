@@ -3,7 +3,7 @@
     "type": "desolate_dungeons:attribute_modification",
     "amount": 5.0,
     "attribute": "minecraft:attack_damage",
-    "attributeModifierIdentifier": "desolate_dungeons:emergency_pufferfish_augment_function",
+    "attributeModifierIdentifier": "desolate_dungeons:augment_function_emergency_pufferfish",
     "operation": "add_value"
   },
   "name": "Emergency Pufferfish"
