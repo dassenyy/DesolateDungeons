@@ -6,15 +6,20 @@ import dev.dassen.desolatedungeons.networking.packet.OfferAugmentsPayload;
 import dev.dassen.desolatedungeons.registry.key.ModRegistryKeys;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class AugmentInventory {
     // Both inventory and offered need to be reworked to contain some sort of "AugmentStack" instead, similar to ItemStack
@@ -41,8 +46,6 @@ public class AugmentInventory {
                 this.offered.set(i, augmentRegistry.getOrThrow(augmentKeys.get(i)).value());
             }
 
-            DesolateDungeons.LOGGER.info("{}", RegistryEntry.of(offered.get(0)).getKey());
-
             ServerPlayNetworking.send(
                 serverPlayer,
                 new OfferAugmentsPayload(
@@ -68,5 +71,25 @@ public class AugmentInventory {
         for (Augment augment : inventory) {
             augment.augmentFunction.run(new AugmentFunctionContext(augment, player, player.getWorld()));
         }
+    }
+
+    public void readNbt(NbtList nbtList) {
+        Registry<Augment> augmentRegistry = player.getWorld().getRegistryManager().getOrThrow(ModRegistryKeys.AUGMENT);
+
+        for (NbtElement nbtElement : nbtList) {
+            Optional<Augment> optionalAugment = augmentRegistry.getOptionalValue(Identifier.of(nbtElement.asString()));
+            DesolateDungeons.LOGGER.info(optionalAugment.toString());
+            optionalAugment.ifPresent(inventory::add);
+        }
+    }
+
+    public NbtList writeNbt(NbtList nbtList) {
+        Registry<Augment> augmentRegistry = player.getWorld().getRegistryManager().getOrThrow(ModRegistryKeys.AUGMENT);
+
+        for (Augment augment : inventory) {
+            nbtList.add(NbtString.of(augmentRegistry.getEntry(augment).getIdAsString()));
+        }
+
+        return nbtList;
     }
 }

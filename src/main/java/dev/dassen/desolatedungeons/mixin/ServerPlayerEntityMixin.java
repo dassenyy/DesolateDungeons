@@ -1,7 +1,7 @@
 package dev.dassen.desolatedungeons.mixin;
 
 import dev.dassen.desolatedungeons.entity.player.CrossDimensionalPlayerStateManager;
-import dev.dassen.desolatedungeons.impl.entity.PersistentDataSaver;
+import dev.dassen.desolatedungeons.impl.entity.player.PlayerPersistentDataSaver;
 import dev.dassen.desolatedungeons.registry.key.ModWorldKeys;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -19,7 +19,7 @@ public abstract class ServerPlayerEntityMixin {
     public void handleDesolateDungeonDimensionTravel(ServerWorld originWorld, CallbackInfo info) {
         //noinspection DataFlowIssue
         ServerPlayerEntity thisPlayer = ((ServerPlayerEntity) (Object) this);
-        PersistentDataSaver thisPlayerDataSaver = ((PersistentDataSaver) thisPlayer);
+        PlayerPersistentDataSaver thisPlayerDataSaver = ((PlayerPersistentDataSaver) thisPlayer);
 
         RegistryKey<World> originWorldKey = originWorld.getRegistryKey();
         RegistryKey<World> currentWorldKey = thisPlayer.getWorld().getRegistryKey();
@@ -27,12 +27,12 @@ public abstract class ServerPlayerEntityMixin {
         if (currentWorldKey == ModWorldKeys.DESOLATE_DUNGEON) {
             CrossDimensionalPlayerStateManager.saveAndClearVanillaData(
                 thisPlayer,
-                thisPlayerDataSaver.getOrCreateNbtCompound(thisPlayerDataSaver.getPersistentData(), "StashedPlayerData")
+                thisPlayerDataSaver.getStashedPlayerData()
             );
         } else if (originWorldKey == ModWorldKeys.DESOLATE_DUNGEON) {
             CrossDimensionalPlayerStateManager.loadVanillaData(
                 thisPlayer,
-                thisPlayerDataSaver.getOrCreateNbtCompound(thisPlayerDataSaver.getPersistentData(), "StashedPlayerData")
+                thisPlayerDataSaver.getStashedPlayerData()
             );
         }
     }
