@@ -24,6 +24,14 @@
           "attribute": "minecraft:block_interaction_range",
           "attributeModifierIdentifier": "desolate_dungeons:augment_function_miner_mania_block_interaction_range",
           "operation": "add_value"
+        },
+        {
+          "type": "desolate_dungeons:status_effect",
+          "status_effect_instance": {
+            "duration": -1,
+            "id": "minecraft:night_vision",
+            "show_icon": true
+          }
         }
       ]
     }

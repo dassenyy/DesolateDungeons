@@ -1,10 +1,17 @@
 {
   "augment_function": {
-    "type": "desolate_dungeons:attribute_modification",
-    "amount": 5.0,
-    "attribute": "minecraft:attack_damage",
-    "attributeModifierIdentifier": "desolate_dungeons:augment_function_emergency_pufferfish",
-    "operation": "add_value"
+    "type": "desolate_dungeons:condition",
+    "augment_condition": {
+      "type": "desolate_dungeons:y_coordinate_in_between",
+      "y_coordinate_int_provider": {
+        "max_inclusive": 333,
+        "min_inclusive": 333
+      }
+    },
+    "augment_function": {
+      "type": "desolate_dungeons:summon_entity",
+      "entity_type_identifier": "minecraft:pufferfish"
+    }
   },
   "name": "Emergency Pufferfish"
 }

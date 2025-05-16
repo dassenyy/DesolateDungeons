@@ -2,11 +2,12 @@ package dev.dassen.desolatedungeons.augment;
 
 import dev.dassen.desolatedungeons.DesolateDungeons;
 import dev.dassen.desolatedungeons.augment.condition.types.YCoordinateInBetweenAugmentCondition;
-import dev.dassen.desolatedungeons.augment.function.types.AttributeModificationAugmentFunction;
-import dev.dassen.desolatedungeons.augment.function.types.ConditionAugmentFunction;
-import dev.dassen.desolatedungeons.augment.function.types.SequenceAugmentFunction;
+import dev.dassen.desolatedungeons.augment.function.types.*;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
@@ -33,11 +34,9 @@ public class Augments {
     );
     public static final Augment EMERGENCY_PUFFERFISH = new Augment(
         "Emergency Pufferfish",
-        new AttributeModificationAugmentFunction(
-            EntityAttributes.ATTACK_DAMAGE,
-            Identifier.of(DesolateDungeons.MOD_ID, "augment_function_emergency_pufferfish"),
-            EntityAttributeModifier.Operation.ADD_VALUE,
-            5d
+        new ConditionAugmentFunction(
+            new YCoordinateInBetweenAugmentCondition(UniformIntProvider.create(333, 333)),
+            new SummonEntityAugmentFunction(Identifier.of("minecraft", "pufferfish"), new NbtCompound())
         )
     );
     public static final Augment MINER_MANIA = new Augment(
@@ -56,6 +55,12 @@ public class Augments {
                     Identifier.of(DesolateDungeons.MOD_ID, "augment_function_miner_mania_block_interaction_range"),
                     EntityAttributeModifier.Operation.ADD_VALUE,
                     1d
+                ),
+                new StatusEffectAugmentFunction(
+                    new StatusEffectInstance(
+                        StatusEffects.NIGHT_VISION,
+                        StatusEffectInstance.INFINITE
+                    )
                 )
             ))
         )

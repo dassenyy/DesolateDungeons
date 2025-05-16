@@ -1,9 +1,7 @@
 package dev.dassen.desolatedungeons.augment.function;
 
 import dev.dassen.desolatedungeons.DesolateDungeons;
-import dev.dassen.desolatedungeons.augment.function.types.AttributeModificationAugmentFunction;
-import dev.dassen.desolatedungeons.augment.function.types.ConditionAugmentFunction;
-import dev.dassen.desolatedungeons.augment.function.types.SequenceAugmentFunction;
+import dev.dassen.desolatedungeons.augment.function.types.*;
 import dev.dassen.desolatedungeons.registry.ModRegistries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -15,6 +13,10 @@ public class AugmentFunctionTypes {
         registerAugmentFunctionType("condition", new AugmentFunctionType<>(ConditionAugmentFunction.CODEC));
     public static final AugmentFunctionType<SequenceAugmentFunction> SEQUENCE =
         registerAugmentFunctionType("sequence", new AugmentFunctionType<>(SequenceAugmentFunction.CODEC));
+    public static final AugmentFunctionType<StatusEffectAugmentFunction> STATUS_EFFECT =
+        registerAugmentFunctionType("status_effect", new AugmentFunctionType<>(StatusEffectAugmentFunction.CODEC));
+    public static final AugmentFunctionType<SummonEntityAugmentFunction> SUMMON_ENTITY =
+        registerAugmentFunctionType("summon_entity", new AugmentFunctionType<>(SummonEntityAugmentFunction.CODEC));
 
     public static void register() {
         DesolateDungeons.LOGGER.info("Registering Augment Function Types for " + DesolateDungeons.MOD_ID);
