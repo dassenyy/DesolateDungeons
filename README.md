@@ -6,7 +6,7 @@ Desolate Dungeons is currently Work in Progress. While it is in a playable state
 Desolate Dungeons is a dimension-based adventure mod with roguelike elements. You enter the dimension with nothing
 and progress by overcoming challenges, earning loot and rewards you can return to the Overworld with.
 
-<img src="src/main/resources/assets/desolate_dungeons/banner.png" alt="Moderation Logging" width="100%"/>
+<img src="src/main/resources/assets/desolate_dungeons/banner.png" alt="Minecraft sunset over ocean with Sandswept Ruin structure on a beach" width="100%"/>
 
 ## Licensing
 ### Code
