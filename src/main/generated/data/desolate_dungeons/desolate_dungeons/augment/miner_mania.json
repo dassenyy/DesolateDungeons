@@ -42,11 +42,8 @@
         },
         {
           "type": "desolate_dungeons:status_effect",
-          "status_effect_instance": {
-            "duration": 1000,
-            "id": "minecraft:night_vision",
-            "show_icon": true
-          }
+          "duration": 20,
+          "status_effect": "minecraft:night_vision"
         }
       ]
     }

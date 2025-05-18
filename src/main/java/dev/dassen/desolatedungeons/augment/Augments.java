@@ -5,7 +5,6 @@ import dev.dassen.desolatedungeons.augment.condition.types.YCoordinateInBetweenA
 import dev.dassen.desolatedungeons.augment.function.types.*;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
@@ -59,10 +58,8 @@ public class Augments {
                     1d
                 ),
                 new StatusEffectAugmentFunction(
-                    new StatusEffectInstance(
-                        StatusEffects.NIGHT_VISION,
-                        StatusEffectInstance.INFINITE
-                    )
+                    StatusEffects.NIGHT_VISION,
+                    20
                 )
             )),
             Optional.of(new SequenceAugmentFunction(List.of(
