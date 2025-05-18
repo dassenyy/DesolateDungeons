@@ -9,8 +9,12 @@
       }
     },
     "if_true_augment_function": {
-      "type": "desolate_dungeons:summon_entity",
-      "entity_type_identifier": "minecraft:pufferfish"
+      "type": "desolate_dungeons:with_cooldown",
+      "augment_function": {
+        "type": "desolate_dungeons:summon_entity",
+        "entity_type_identifier": "minecraft:pufferfish"
+      },
+      "cooldown": 50
     }
   },
   "name": "Emergency Pufferfish"

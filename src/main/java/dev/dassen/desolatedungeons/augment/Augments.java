@@ -36,7 +36,10 @@ public class Augments {
         "Emergency Pufferfish",
         new ConditionAugmentFunction(
             new YCoordinateInBetweenAugmentCondition(UniformIntProvider.create(333, 333)),
-            new SummonEntityAugmentFunction(Identifier.of("minecraft", "pufferfish"), new NbtCompound()),
+            new WithCooldownAugmentFunction(
+                new SummonEntityAugmentFunction(Identifier.of("minecraft", "pufferfish"), new NbtCompound()),
+                50
+            ),
             Optional.empty()
         )
     );

@@ -19,6 +19,8 @@ public class AugmentFunctionTypes {
         registerAugmentFunctionType("status_effect", new AugmentFunctionType<>(StatusEffectAugmentFunction.CODEC));
     public static final AugmentFunctionType<SummonEntityAugmentFunction> SUMMON_ENTITY =
         registerAugmentFunctionType("summon_entity", new AugmentFunctionType<>(SummonEntityAugmentFunction.CODEC));
+    public static final AugmentFunctionType<WithCooldownAugmentFunction> WITH_COOLDOWN =
+        registerAugmentFunctionType("with_cooldown", new AugmentFunctionType<>(WithCooldownAugmentFunction.CODEC));
 
     public static void register() {
         DesolateDungeons.LOGGER.info("Registering Augment Function Types for " + DesolateDungeons.MOD_ID);
