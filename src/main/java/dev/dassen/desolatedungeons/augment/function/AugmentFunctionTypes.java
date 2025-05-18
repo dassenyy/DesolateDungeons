@@ -7,10 +7,12 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class AugmentFunctionTypes {
-    public static final AugmentFunctionType<AttributeModificationAugmentFunction> ATTRIBUTE_MODIFICATION =
-        registerAugmentFunctionType("attribute_modification", new AugmentFunctionType<>(AttributeModificationAugmentFunction.CODEC));
     public static final AugmentFunctionType<ConditionAugmentFunction> CONDITION =
         registerAugmentFunctionType("condition", new AugmentFunctionType<>(ConditionAugmentFunction.CODEC));
+    public static final AugmentFunctionType<RemoveAttributeAugmentFunction> REMOVE_ATTRIBUTE =
+        registerAugmentFunctionType("remove_attribute", new AugmentFunctionType<>(RemoveAttributeAugmentFunction.CODEC));
+    public static final AugmentFunctionType<SetAttributeAugmentFunction> SET_ATTRIBUTE =
+        registerAugmentFunctionType("set_attribute", new AugmentFunctionType<>(SetAttributeAugmentFunction.CODEC));
     public static final AugmentFunctionType<SequenceAugmentFunction> SEQUENCE =
         registerAugmentFunctionType("sequence", new AugmentFunctionType<>(SequenceAugmentFunction.CODEC));
     public static final AugmentFunctionType<StatusEffectAugmentFunction> STATUS_EFFECT =

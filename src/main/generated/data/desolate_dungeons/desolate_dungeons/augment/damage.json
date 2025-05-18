@@ -1,9 +1,9 @@
 {
   "augment_function": {
-    "type": "desolate_dungeons:attribute_modification",
+    "type": "desolate_dungeons:set_attribute",
     "amount": 2.0,
     "attribute": "minecraft:attack_damage",
-    "attributeModifierIdentifier": "desolate_dungeons:augment_function_damage",
+    "custom_identifier": "desolate_dungeons:augment_function_damage",
     "operation": "add_value"
   },
   "name": "Damage"

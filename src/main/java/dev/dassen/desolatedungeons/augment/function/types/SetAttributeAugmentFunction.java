@@ -3,6 +3,7 @@ package dev.dassen.desolatedungeons.augment.function.types;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.dassen.desolatedungeons.augment.AugmentState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
@@ -14,55 +15,48 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-public class AttributeModificationAugmentFunction implements AugmentFunction {
-    public static final MapCodec<AttributeModificationAugmentFunction> CODEC = RecordCodecBuilder.mapCodec(
+public class SetAttributeAugmentFunction implements AugmentFunction {
+    public static final MapCodec<SetAttributeAugmentFunction> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             EntityAttribute.CODEC.fieldOf("attribute").forGetter(augmentFunction -> augmentFunction.attribute),
-            Identifier.CODEC.fieldOf("attributeModifierIdentifier").forGetter(augmentFunction -> augmentFunction.attributeModifierIdentifier),
+            Identifier.CODEC.fieldOf("custom_identifier").forGetter(augmentFunction -> augmentFunction.customIdentifier),
             EntityAttributeModifier.Operation.CODEC.fieldOf("operation").forGetter(augmentFunction -> augmentFunction.operation),
             Codec.DOUBLE.fieldOf("amount").forGetter(augmentFunction -> augmentFunction.amount)
-        ).apply(instance, AttributeModificationAugmentFunction::new)
+        ).apply(instance, SetAttributeAugmentFunction::new)
     );
 
     private final RegistryEntry<EntityAttribute> attribute;
-    private final Identifier attributeModifierIdentifier;
+    private final Identifier customIdentifier;
     private final EntityAttributeModifier.Operation operation;
     private final double amount;
 
 
-    public AttributeModificationAugmentFunction(RegistryEntry<EntityAttribute> attribute, Identifier attributeModifierIdentifier, EntityAttributeModifier.Operation operation, double amount) {
+    public SetAttributeAugmentFunction(RegistryEntry<EntityAttribute> attribute, Identifier customIdentifier, EntityAttributeModifier.Operation operation, double amount) {
         this.attribute = attribute;
-        this.attributeModifierIdentifier = attributeModifierIdentifier;
+        this.customIdentifier = customIdentifier;
         this.operation = operation;
         this.amount = amount;
     }
 
     @Override
     public @NotNull AugmentFunctionType<?> getType() {
-        return AugmentFunctionTypes.ATTRIBUTE_MODIFICATION;
+        return AugmentFunctionTypes.SET_ATTRIBUTE;
     }
 
     @Override
-    public void run(AugmentFunctionContext context) {
+    public AugmentState run(AugmentFunctionContext context) {
         EntityAttributeInstance attributeInstance = context.player().getAttributeInstance(attribute);
 
-        if (attributeInstance != null && attributeInstance.getModifier(attributeModifierIdentifier) == null) {
+        if (attributeInstance != null && attributeInstance.getModifier(customIdentifier) == null) {
             attributeInstance.addTemporaryModifier(
                 new EntityAttributeModifier(
-                    attributeModifierIdentifier,
+                    customIdentifier,
                     amount,
                     operation
                 )
             );
         }
-    }
 
-    @Override
-    public void pass(AugmentFunctionContext context) {
-        EntityAttributeInstance attributeInstance = context.player().getAttributeInstance(attribute);
-
-        if (attributeInstance != null && attributeInstance.getModifier(attributeModifierIdentifier) != null) {
-            attributeInstance.removeModifier(attributeModifierIdentifier);
-        }
+        return AugmentState.ENDED;
     }
 }

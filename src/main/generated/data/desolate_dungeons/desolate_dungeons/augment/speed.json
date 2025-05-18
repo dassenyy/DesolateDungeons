@@ -1,9 +1,9 @@
 {
   "augment_function": {
-    "type": "desolate_dungeons:attribute_modification",
+    "type": "desolate_dungeons:set_attribute",
     "amount": 0.5,
     "attribute": "minecraft:movement_speed",
-    "attributeModifierIdentifier": "desolate_dungeons:augment_function_speed",
+    "custom_identifier": "desolate_dungeons:augment_function_speed",
     "operation": "add_multiplied_base"
   },
   "name": "Speed"

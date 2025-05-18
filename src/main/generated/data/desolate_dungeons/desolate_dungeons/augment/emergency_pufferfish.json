@@ -8,7 +8,7 @@
         "min_inclusive": 333
       }
     },
-    "augment_function": {
+    "if_true_augment_function": {
       "type": "desolate_dungeons:summon_entity",
       "entity_type_identifier": "minecraft:pufferfish"
     }

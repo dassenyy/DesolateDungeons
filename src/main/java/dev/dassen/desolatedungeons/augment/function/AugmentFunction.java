@@ -1,6 +1,7 @@
 package dev.dassen.desolatedungeons.augment.function;
 
 import com.mojang.serialization.Codec;
+import dev.dassen.desolatedungeons.augment.AugmentState;
 import dev.dassen.desolatedungeons.registry.ModRegistries;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,7 +11,5 @@ public interface AugmentFunction {
 
     @NotNull AugmentFunctionType<?> getType();
 
-    void run(AugmentFunctionContext context);
-
-    void pass(AugmentFunctionContext context);
+    AugmentState run(AugmentFunctionContext context);
 }

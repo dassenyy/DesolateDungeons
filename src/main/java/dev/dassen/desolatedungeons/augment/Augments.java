@@ -12,11 +12,12 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.List;
+import java.util.Optional;
 
 public class Augments {
     public static final Augment DAMAGE = new Augment(
         "Damage",
-        new AttributeModificationAugmentFunction(
+        new SetAttributeAugmentFunction(
             EntityAttributes.ATTACK_DAMAGE,
             Identifier.of(DesolateDungeons.MOD_ID, "augment_function_damage"),
             EntityAttributeModifier.Operation.ADD_VALUE,
@@ -25,7 +26,7 @@ public class Augments {
     );
     public static final Augment SPEED = new Augment(
         "Speed",
-        new AttributeModificationAugmentFunction(
+        new SetAttributeAugmentFunction(
             EntityAttributes.MOVEMENT_SPEED,
             Identifier.of(DesolateDungeons.MOD_ID, "augment_function_speed"),
             EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE,
@@ -36,7 +37,8 @@ public class Augments {
         "Emergency Pufferfish",
         new ConditionAugmentFunction(
             new YCoordinateInBetweenAugmentCondition(UniformIntProvider.create(333, 333)),
-            new SummonEntityAugmentFunction(Identifier.of("minecraft", "pufferfish"), new NbtCompound())
+            new SummonEntityAugmentFunction(Identifier.of("minecraft", "pufferfish"), new NbtCompound()),
+            Optional.empty()
         )
     );
     public static final Augment MINER_MANIA = new Augment(
@@ -44,13 +46,13 @@ public class Augments {
         new ConditionAugmentFunction(
             new YCoordinateInBetweenAugmentCondition(UniformIntProvider.create(0, 192)),
             new SequenceAugmentFunction(List.of(
-                new AttributeModificationAugmentFunction(
+                new SetAttributeAugmentFunction(
                     EntityAttributes.BLOCK_BREAK_SPEED,
                     Identifier.of(DesolateDungeons.MOD_ID, "augment_function_miner_mania_block_break_speed"),
                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE,
                     0.5d
                 ),
-                new AttributeModificationAugmentFunction(
+                new SetAttributeAugmentFunction(
                     EntityAttributes.BLOCK_INTERACTION_RANGE,
                     Identifier.of(DesolateDungeons.MOD_ID, "augment_function_miner_mania_block_interaction_range"),
                     EntityAttributeModifier.Operation.ADD_VALUE,
@@ -62,7 +64,17 @@ public class Augments {
                         StatusEffectInstance.INFINITE
                     )
                 )
-            ))
+            )),
+            Optional.of(new SequenceAugmentFunction(List.of(
+                new RemoveAttributeAugmentFunction(
+                    EntityAttributes.BLOCK_BREAK_SPEED,
+                    Identifier.of(DesolateDungeons.MOD_ID, "augment_function_miner_mania_block_break_speed")
+                ),
+                new RemoveAttributeAugmentFunction(
+                    EntityAttributes.BLOCK_INTERACTION_RANGE,
+                    Identifier.of(DesolateDungeons.MOD_ID, "augment_function_miner_mania_block_interaction_range")
+                )
+            )))
         )
     );
 }

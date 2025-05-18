@@ -2,6 +2,7 @@ package dev.dassen.desolatedungeons.augment.function.types;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.dassen.desolatedungeons.augment.AugmentState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
@@ -33,16 +34,11 @@ public class SequenceAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public void run(AugmentFunctionContext context) {
+    public AugmentState run(AugmentFunctionContext context) {
         for (AugmentFunction augmentFunction : sequence) {
             augmentFunction.run(context);
         }
-    }
 
-    @Override
-    public void pass(AugmentFunctionContext context) {
-        for (AugmentFunction augmentFunction : sequence) {
-            augmentFunction.pass(context);
-        }
+        return AugmentState.ENDED;
     }
 }

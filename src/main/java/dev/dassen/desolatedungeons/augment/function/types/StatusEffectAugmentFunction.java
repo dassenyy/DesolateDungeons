@@ -2,6 +2,7 @@ package dev.dassen.desolatedungeons.augment.function.types;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.dassen.desolatedungeons.augment.AugmentState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
@@ -28,12 +29,9 @@ public class StatusEffectAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public void run(AugmentFunctionContext context) {
+    public AugmentState run(AugmentFunctionContext context) {
         context.player().setStatusEffect(statusEffectInstance, null);
-    }
 
-    @Override
-    public void pass(AugmentFunctionContext context) {
-        context.player().removeStatusEffect(statusEffectInstance.getEffectType());
+        return AugmentState.ENDED;
     }
 }

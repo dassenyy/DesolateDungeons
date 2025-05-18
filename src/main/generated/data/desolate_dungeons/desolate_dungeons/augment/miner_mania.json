@@ -8,27 +8,42 @@
         "min_inclusive": 0
       }
     },
-    "augment_function": {
+    "if_false_augment_function": {
       "type": "desolate_dungeons:sequence",
       "sequence": [
         {
-          "type": "desolate_dungeons:attribute_modification",
+          "type": "desolate_dungeons:remove_attribute",
+          "attribute": "minecraft:block_break_speed",
+          "custom_identifier": "desolate_dungeons:augment_function_miner_mania_block_break_speed"
+        },
+        {
+          "type": "desolate_dungeons:remove_attribute",
+          "attribute": "minecraft:block_interaction_range",
+          "custom_identifier": "desolate_dungeons:augment_function_miner_mania_block_interaction_range"
+        }
+      ]
+    },
+    "if_true_augment_function": {
+      "type": "desolate_dungeons:sequence",
+      "sequence": [
+        {
+          "type": "desolate_dungeons:set_attribute",
           "amount": 0.5,
           "attribute": "minecraft:block_break_speed",
-          "attributeModifierIdentifier": "desolate_dungeons:augment_function_miner_mania_block_break_speed",
+          "custom_identifier": "desolate_dungeons:augment_function_miner_mania_block_break_speed",
           "operation": "add_multiplied_base"
         },
         {
-          "type": "desolate_dungeons:attribute_modification",
+          "type": "desolate_dungeons:set_attribute",
           "amount": 1.0,
           "attribute": "minecraft:block_interaction_range",
-          "attributeModifierIdentifier": "desolate_dungeons:augment_function_miner_mania_block_interaction_range",
+          "custom_identifier": "desolate_dungeons:augment_function_miner_mania_block_interaction_range",
           "operation": "add_value"
         },
         {
           "type": "desolate_dungeons:status_effect",
           "status_effect_instance": {
-            "duration": -1,
+            "duration": 1000,
             "id": "minecraft:night_vision",
             "show_icon": true
           }

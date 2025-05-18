@@ -3,6 +3,7 @@ package dev.dassen.desolatedungeons.augment.function.types;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.dassen.desolatedungeons.DesolateDungeons;
+import dev.dassen.desolatedungeons.augment.AugmentState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
@@ -40,7 +41,7 @@ public class SummonEntityAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public void run(AugmentFunctionContext context) {
+    public AugmentState run(AugmentFunctionContext context) {
         EntityType<?> entityType = context.world().getRegistryManager()
             .getOrThrow(RegistryKeys.ENTITY_TYPE)
             .getOrThrow(RegistryKey.of(RegistryKeys.ENTITY_TYPE, entityTypeIdentifier))
@@ -73,9 +74,7 @@ public class SummonEntityAugmentFunction implements AugmentFunction {
                 DesolateDungeons.LOGGER.warn("SummonEntityAugmentFunction failed to summon the entity {} because of issues with the UUID", entityTypeIdentifier);
             }
         }
-    }
 
-    @Override
-    public void pass(AugmentFunctionContext context) {
+        return AugmentState.ENDED;
     }
 }

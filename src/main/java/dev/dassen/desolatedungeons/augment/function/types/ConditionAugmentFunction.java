@@ -2,6 +2,7 @@ package dev.dassen.desolatedungeons.augment.function.types;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.dassen.desolatedungeons.augment.AugmentState;
 import dev.dassen.desolatedungeons.augment.condition.AugmentCondition;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
@@ -9,20 +10,25 @@ import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
+
 public class ConditionAugmentFunction implements AugmentFunction {
     public static final MapCodec<ConditionAugmentFunction> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             AugmentCondition.CODEC.fieldOf("augment_condition").forGetter(augmentFunction -> augmentFunction.augmentCondition),
-            AugmentFunction.CODEC.fieldOf("augment_function").forGetter(augmentFunction -> augmentFunction.augmentFunction)
+            AugmentFunction.CODEC.fieldOf("if_true_augment_function").forGetter(augmentFunction -> augmentFunction.ifTrueAugmentFunction),
+            AugmentFunction.CODEC.optionalFieldOf("if_false_augment_function").forGetter(augmentFunction -> augmentFunction.ifFalseAugmentFunction)
         ).apply(instance, ConditionAugmentFunction::new)
     );
 
     private final AugmentCondition augmentCondition;
-    private final AugmentFunction augmentFunction;
+    private final AugmentFunction ifTrueAugmentFunction;
+    private final Optional<AugmentFunction> ifFalseAugmentFunction;
 
-    public ConditionAugmentFunction(AugmentCondition augmentCondition, AugmentFunction augmentFunction) {
+    public ConditionAugmentFunction(AugmentCondition augmentCondition, AugmentFunction ifTrueAugmentFunction, Optional<AugmentFunction> ifFalseAugmentFunction) {
         this.augmentCondition = augmentCondition;
-        this.augmentFunction = augmentFunction;
+        this.ifTrueAugmentFunction = ifTrueAugmentFunction;
+        this.ifFalseAugmentFunction = ifFalseAugmentFunction;
     }
 
 
@@ -32,15 +38,13 @@ public class ConditionAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public void run(AugmentFunctionContext context) {
+    public AugmentState run(AugmentFunctionContext context) {
         if (augmentCondition.test(context)) {
-            augmentFunction.run(context);
-        } else {
-            augmentFunction.pass(context);
+            ifTrueAugmentFunction.run(context);
+        } else if (ifFalseAugmentFunction.isPresent()) {
+            ifFalseAugmentFunction.get().run(context);
         }
-    }
 
-    @Override
-    public void pass(AugmentFunctionContext context) {
+        return AugmentState.ENDED;
     }
 }
