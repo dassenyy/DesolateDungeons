@@ -3,10 +3,12 @@ package dev.dassen.desolatedungeons.augment;
 import dev.dassen.desolatedungeons.DesolateDungeons;
 import dev.dassen.desolatedungeons.augment.condition.types.YCoordinateInBetweenAugmentCondition;
 import dev.dassen.desolatedungeons.augment.function.types.*;
+import dev.dassen.desolatedungeons.registry.key.AugmentKeys;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registerable;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
@@ -21,15 +23,6 @@ public class Augments {
             Identifier.of(DesolateDungeons.MOD_ID, "augment_function_damage"),
             EntityAttributeModifier.Operation.ADD_VALUE,
             2d
-        )
-    );
-    public static final Augment SPEED = new Augment(
-        "Speed",
-        new SetAttributeAugmentFunction(
-            EntityAttributes.MOVEMENT_SPEED,
-            Identifier.of(DesolateDungeons.MOD_ID, "augment_function_speed"),
-            EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE,
-            0.5d
         )
     );
     public static final Augment EMERGENCY_PUFFERFISH = new Augment(
@@ -77,4 +70,32 @@ public class Augments {
             )))
         )
     );
+    public static final Augment SPEED = new Augment(
+        "Speed",
+        new SetAttributeAugmentFunction(
+            EntityAttributes.MOVEMENT_SPEED,
+            Identifier.of(DesolateDungeons.MOD_ID, "augment_function_speed"),
+            EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE,
+            0.5d
+        )
+    );
+
+    public static void bootstrap(Registerable<Augment> augmentRegisterable) {
+        augmentRegisterable.register(
+            AugmentKeys.DAMAGE,
+            DAMAGE
+        );
+        augmentRegisterable.register(
+            AugmentKeys.EMERGENCY_PUFFERFISH,
+            EMERGENCY_PUFFERFISH
+        );
+        augmentRegisterable.register(
+            AugmentKeys.MINER_MANIA,
+            MINER_MANIA
+        );
+        augmentRegisterable.register(
+            AugmentKeys.SPEED,
+            SPEED
+        );
+    }
 }

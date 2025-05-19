@@ -1,6 +1,8 @@
 package dev.dassen.desolatedungeons;
 
+import dev.dassen.desolatedungeons.augment.Augments;
 import dev.dassen.desolatedungeons.datagen.*;
+import dev.dassen.desolatedungeons.registry.key.ModRegistryKeys;
 import dev.dassen.desolatedungeons.world.biome.ModBiomes;
 import dev.dassen.desolatedungeons.world.dimension.ModDimensionTypes;
 import dev.dassen.desolatedungeons.world.gen.chunk.ModChunkGeneratorSettings;
@@ -29,6 +31,7 @@ public class DesolateDungeonsDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModItemTagProvider::new);
 		pack.addProvider(ModBlockTagProvider::new);
 		pack.addProvider(ModBiomeTagProvider::new);
+		pack.addProvider(AugmentTagProvider::new);
 
 		pack.addProvider(ModRecipeProvider::new);
 
@@ -58,6 +61,8 @@ public class DesolateDungeonsDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.addRegistry(RegistryKeys.CHUNK_GENERATOR_SETTINGS, ModChunkGeneratorSettings::bootstrap);
 
 		registryBuilder.addRegistry(RegistryKeys.DIMENSION_TYPE, ModDimensionTypes::bootstrap);
+
+		registryBuilder.addRegistry(ModRegistryKeys.AUGMENT, Augments::bootstrap);
 
 		DataGeneratorEntrypoint.super.buildRegistry(registryBuilder);
 	}
