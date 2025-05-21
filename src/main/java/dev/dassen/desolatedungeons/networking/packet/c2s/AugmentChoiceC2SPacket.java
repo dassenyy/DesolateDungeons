@@ -10,6 +10,6 @@ public class AugmentChoiceC2SPacket {
     public static final Identifier IDENTIFIER = Identifier.of(DesolateDungeons.MOD_ID, "augment_choice");
 
     public static void receive(AugmentChoicePayload payload, ServerPlayNetworking.Context serverContext) {
-        ((AugmentImpl) serverContext.player()).getAugmentInventory().pickAugment(payload.augment().value());
+        ((AugmentImpl) serverContext.player()).getAugmentInventory().pickAugment(payload.augment());
     }
 }
