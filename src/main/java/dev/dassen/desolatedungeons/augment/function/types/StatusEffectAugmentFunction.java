@@ -5,7 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.dassen.desolatedungeons.augment.AugmentState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
-import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
+import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import net.minecraft.entity.effect.StatusEffect;
@@ -43,8 +43,8 @@ public class StatusEffectAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public AugmentState run(AugmentFunctionContext context) {
-        context.player().setStatusEffect(new StatusEffectInstance(statusEffect, duration, amplifier), null);
+    public AugmentState run(AugmentExecutionContext context) {
+        context.serverPlayer().setStatusEffect(new StatusEffectInstance(statusEffect, duration, amplifier), null);
 
         return AugmentState.ENDED;
     }

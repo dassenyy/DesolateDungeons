@@ -1,7 +1,6 @@
 package dev.dassen.desolatedungeons.augment;
 
 import dev.dassen.desolatedungeons.DesolateDungeons;
-import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
 import dev.dassen.desolatedungeons.networking.packet.OfferAugmentsPayload;
 import dev.dassen.desolatedungeons.registry.key.ModRegistryKeys;
 import dev.dassen.desolatedungeons.registry.tag.AugmentTags;
@@ -80,7 +79,7 @@ public class AugmentInventory {
 
     public void tickAugments() {
         for (RegistryEntry<Augment> augment : inventory.values()) {
-            augment.value().augmentFunction.run(new AugmentFunctionContext(augment.value(), player, player.getWorld()));
+            augment.value().augmentFunction.run(AugmentExecutionContext.createDefault((ServerPlayerEntity) player));
         }
     }
 

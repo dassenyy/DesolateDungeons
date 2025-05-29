@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @SuppressWarnings("unused")
 @Mixin(Entity.class)
 public abstract class EntityMixin {
-    @Inject(method = "remove(Lnet/minecraft/entity/Entity/RemovalReason;)V", at = @At("TAIL"))
+    @Inject(method = "remove(Lnet/minecraft/entity/Entity$RemovalReason;)V", at = @At("TAIL"))
     public void injectRemove(Entity.RemovalReason reason, CallbackInfo ci) {
         //noinspection DataFlowIssue
         if ((Entity) (Object) this instanceof ServerPlayerEntity serverPlayer && reason == Entity.RemovalReason.KILLED) {

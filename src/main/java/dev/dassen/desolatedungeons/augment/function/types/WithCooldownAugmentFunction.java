@@ -5,7 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.dassen.desolatedungeons.augment.AugmentState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
-import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
+import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import org.jetbrains.annotations.NotNull;
@@ -34,12 +34,12 @@ public class WithCooldownAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public AugmentState run(AugmentFunctionContext context) {
-        if (context.world().getTime() >= nextExecutionTick) {
+    public AugmentState run(AugmentExecutionContext context) {
+        if (context.serverWorld().getTime() >= nextExecutionTick) {
             AugmentState augmentState = augmentFunction.run(context);
 
             if (augmentState == AugmentState.ENDED) {
-                nextExecutionTick = context.world().getTime() + cooldown;
+                nextExecutionTick = context.serverWorld().getTime() + cooldown;
             }
         }
 

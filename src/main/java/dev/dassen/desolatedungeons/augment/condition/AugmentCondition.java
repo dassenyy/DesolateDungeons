@@ -1,7 +1,7 @@
 package dev.dassen.desolatedungeons.augment.condition;
 
 import com.mojang.serialization.Codec;
-import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
+import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.registry.ModRegistries;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,5 +11,5 @@ public interface AugmentCondition {
 
     @NotNull AugmentConditionType<?> getType();
 
-    boolean test(AugmentFunctionContext context);
+    boolean test(AugmentExecutionContext context);
 }

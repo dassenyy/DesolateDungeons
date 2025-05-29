@@ -24,11 +24,6 @@ public abstract class PlayerEntityMixin implements PlayerPersistentDataSaver, Au
         return augmentInventory;
     }
 
-    @Inject(method = "tick()V", at = @At("HEAD"))
-    public void tick(CallbackInfo ci) {
-        augmentInventory.tickAugments();
-    }
-
     @Override
     public NbtCompound getStashedPlayerData() {
         if (this.stashedPlayerData == null) {

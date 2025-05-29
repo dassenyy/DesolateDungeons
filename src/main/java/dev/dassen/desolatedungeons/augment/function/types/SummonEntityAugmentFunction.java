@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.dassen.desolatedungeons.DesolateDungeons;
 import dev.dassen.desolatedungeons.augment.AugmentState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
-import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
+import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import net.minecraft.entity.Entity;
@@ -41,8 +41,8 @@ public class SummonEntityAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public AugmentState run(AugmentFunctionContext context) {
-        EntityType<?> entityType = context.world().getRegistryManager()
+    public AugmentState run(AugmentExecutionContext context) {
+        EntityType<?> entityType = context.serverWorld().getRegistryManager()
             .getOrThrow(RegistryKeys.ENTITY_TYPE)
             .getOrThrow(RegistryKey.of(RegistryKeys.ENTITY_TYPE, entityTypeIdentifier))
             .value();
@@ -52,11 +52,11 @@ public class SummonEntityAugmentFunction implements AugmentFunction {
 
         boolean initialize = entityNbt.isEmpty();
         entityNbt.putString("id", entityTypeIdentifier.toString());
-        Entity entity = EntityType.loadEntityWithPassengers(entityNbt, context.world(), SpawnReason.TRIGGERED, processorEntity -> {
+        Entity entity = EntityType.loadEntityWithPassengers(entityNbt, context.serverWorld(), SpawnReason.TRIGGERED, processorEntity -> {
             processorEntity.refreshPositionAndAngles(
-                context.player().getBlockX(),
-                context.player().getBlockY(),
-                context.player().getBlockZ(),
+                context.serverPlayer().getBlockX(),
+                context.serverPlayer().getBlockY(),
+                context.serverPlayer().getBlockZ(),
                 processorEntity.getYaw(),
                 processorEntity.getPitch()
             );
@@ -67,10 +67,10 @@ public class SummonEntityAugmentFunction implements AugmentFunction {
             DesolateDungeons.LOGGER.warn("SummonEntityAugmentFunction failed to load the entity {}", entityTypeIdentifier);
         } else {
             if (entity instanceof MobEntity mobEntity && initialize) {
-                mobEntity.initialize((ServerWorld) context.world(), context.world().getLocalDifficulty(entity.getBlockPos()), SpawnReason.TRIGGERED, null);
+                mobEntity.initialize(context.serverWorld(), context.serverWorld().getLocalDifficulty(entity.getBlockPos()), SpawnReason.TRIGGERED, null);
             }
 
-            if (!((ServerWorld) context.world()).spawnNewEntityAndPassengers(entity)) {
+            if (!context.serverWorld().spawnNewEntityAndPassengers(entity)) {
                 DesolateDungeons.LOGGER.warn("SummonEntityAugmentFunction failed to summon the entity {} because of issues with the UUID", entityTypeIdentifier);
             }
         }

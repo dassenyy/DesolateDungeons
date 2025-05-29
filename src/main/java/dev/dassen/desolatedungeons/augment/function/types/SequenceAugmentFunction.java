@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.dassen.desolatedungeons.augment.AugmentState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
-import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
+import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +34,7 @@ public class SequenceAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public AugmentState run(AugmentFunctionContext context) {
+    public AugmentState run(AugmentExecutionContext context) {
         for (AugmentFunction augmentFunction : sequence) {
             augmentFunction.run(context);
         }

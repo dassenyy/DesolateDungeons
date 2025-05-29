@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.dassen.desolatedungeons.augment.condition.AugmentCondition;
 import dev.dassen.desolatedungeons.augment.condition.AugmentConditionType;
 import dev.dassen.desolatedungeons.augment.condition.AugmentConditionTypes;
-import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
+import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +28,7 @@ public class YCoordinateInBetweenAugmentCondition implements AugmentCondition {
     }
 
     @Override
-    public boolean test(AugmentFunctionContext context) {
-        return yCoordinateIntProvider.getMin() <= context.player().getBlockY() && yCoordinateIntProvider.getMax() >= context.player().getBlockY();
+    public boolean test(AugmentExecutionContext context) {
+        return yCoordinateIntProvider.getMin() <= context.serverPlayer().getBlockY() && yCoordinateIntProvider.getMax() >= context.serverPlayer().getBlockY();
     }
 }

@@ -5,7 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.dassen.desolatedungeons.augment.AugmentState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
-import dev.dassen.desolatedungeons.augment.function.AugmentFunctionContext;
+import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -44,8 +44,8 @@ public class SetAttributeAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public AugmentState run(AugmentFunctionContext context) {
-        EntityAttributeInstance attributeInstance = context.player().getAttributeInstance(attribute);
+    public AugmentState run(AugmentExecutionContext context) {
+        EntityAttributeInstance attributeInstance = context.serverPlayer().getAttributeInstance(attribute);
 
         if (attributeInstance != null && attributeInstance.getModifier(customIdentifier) == null) {
             attributeInstance.addTemporaryModifier(

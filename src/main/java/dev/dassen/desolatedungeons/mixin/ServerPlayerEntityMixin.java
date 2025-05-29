@@ -1,6 +1,7 @@
 package dev.dassen.desolatedungeons.mixin;
 
 import dev.dassen.desolatedungeons.entity.player.CrossDimensionalPlayerStateManager;
+import dev.dassen.desolatedungeons.impl.entity.player.AugmentImpl;
 import dev.dassen.desolatedungeons.impl.entity.player.PlayerPersistentDataSaver;
 import dev.dassen.desolatedungeons.registry.key.ModWorldKeys;
 import net.minecraft.registry.RegistryKey;
@@ -35,5 +36,10 @@ public abstract class ServerPlayerEntityMixin {
                 thisPlayerDataSaver.getStashedPlayerData()
             );
         }
+    }
+
+    @Inject(method = "tick()V", at = @At("HEAD"))
+    public void tick(CallbackInfo ci) {
+        ((AugmentImpl) this).getAugmentInventory().tickAugments();
     }
 }
