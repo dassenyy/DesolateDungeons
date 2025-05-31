@@ -10,6 +10,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registerable;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class Augments {
             new YCoordinateInBetweenAugmentCondition(UniformIntProvider.create(333, 333)),
             new WithCooldownAugmentFunction(
                 new SummonEntityAugmentFunction(Identifier.of("minecraft", "pufferfish"), new NbtCompound()),
-                50
+                ConstantIntProvider.create(50)
             ),
             Optional.empty()
         )
