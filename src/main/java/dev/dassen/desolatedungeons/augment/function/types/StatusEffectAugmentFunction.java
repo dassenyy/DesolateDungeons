@@ -3,7 +3,7 @@ package dev.dassen.desolatedungeons.augment.function.types;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.dassen.desolatedungeons.augment.AugmentState;
+import dev.dassen.desolatedungeons.augment.AugmentFunctionState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
 import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
@@ -14,7 +14,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.dynamic.Codecs;
 import org.jetbrains.annotations.NotNull;
 
-public class StatusEffectAugmentFunction implements AugmentFunction {
+public class StatusEffectAugmentFunction extends AugmentFunction {
     public static final MapCodec<StatusEffectAugmentFunction> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             StatusEffect.ENTRY_CODEC.fieldOf("status_effect").forGetter(augmentFunction -> augmentFunction.statusEffect),
@@ -43,9 +43,9 @@ public class StatusEffectAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public AugmentState run(AugmentExecutionContext context) {
+    protected AugmentFunctionState run(AugmentExecutionContext context) {
         context.serverPlayer().setStatusEffect(new StatusEffectInstance(statusEffect, duration, amplifier), null);
 
-        return AugmentState.ENDED;
+        return state = AugmentFunctionState.ENDED;
     }
 }

@@ -2,7 +2,7 @@ package dev.dassen.desolatedungeons.augment.function.types;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.dassen.desolatedungeons.augment.AugmentState;
+import dev.dassen.desolatedungeons.augment.AugmentFunctionState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
 import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class SequenceAugmentFunction implements AugmentFunction {
+public class SequenceAugmentFunction extends AugmentFunction {
     public static final MapCodec<SequenceAugmentFunction> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             AugmentFunction.CODEC.listOf().fieldOf("sequence").forGetter(augmentFunction -> augmentFunction.sequence)
@@ -19,6 +19,7 @@ public class SequenceAugmentFunction implements AugmentFunction {
     );
 
     private final List<AugmentFunction> sequence;
+    private boolean anyStillRunning = false;
 
     public SequenceAugmentFunction(List<AugmentFunction> sequence) {
         if (sequence.isEmpty()) {
@@ -34,11 +35,25 @@ public class SequenceAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public AugmentState run(AugmentExecutionContext context) {
-        for (AugmentFunction augmentFunction : sequence) {
-            augmentFunction.run(context);
+    protected AugmentFunctionState run(AugmentExecutionContext context) {
+        if (!anyStillRunning) {
+            for (AugmentFunction augmentFunction : sequence) {
+                augmentFunction.tryStartingOrKeepRunning(context);
+            }
+        } else {
+            anyStillRunning = false;
+            for (AugmentFunction augmentFunction : sequence) {
+                if (augmentFunction.getState() == AugmentFunctionState.RUNNING) {
+                    AugmentFunctionState nestedFunctionState = augmentFunction.tryStartingOrKeepRunning(context);
+                    if (nestedFunctionState == AugmentFunctionState.RUNNING) { anyStillRunning = true; }
+                }
+            }
         }
 
-        return AugmentState.ENDED;
+        if (anyStillRunning) {
+            return state = AugmentFunctionState.RUNNING;
+        } else {
+            return state = AugmentFunctionState.ENDED;
+        }
     }
 }

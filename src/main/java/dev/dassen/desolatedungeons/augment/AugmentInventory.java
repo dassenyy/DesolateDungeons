@@ -79,7 +79,7 @@ public class AugmentInventory {
 
     public void tickAugments() {
         for (RegistryEntry<Augment> augment : inventory.values()) {
-            augment.value().augmentFunction.run(AugmentExecutionContext.createDefault((ServerPlayerEntity) player));
+            augment.value().augmentFunction.tryStartingOrKeepRunning(AugmentExecutionContext.createDefault((ServerPlayerEntity) player));
         }
     }
 

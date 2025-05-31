@@ -1,31 +1,33 @@
 package dev.dassen.desolatedungeons.augment.function.types;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.dassen.desolatedungeons.augment.AugmentState;
+import dev.dassen.desolatedungeons.augment.AugmentFunctionState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
 import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
+import net.minecraft.util.math.intprovider.IntProvider;
 import org.jetbrains.annotations.NotNull;
 
-public class WithCooldownAugmentFunction implements AugmentFunction {
+public class WithCooldownAugmentFunction extends AugmentFunction {
     public static final MapCodec<WithCooldownAugmentFunction> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             AugmentFunction.CODEC.fieldOf("augment_function").forGetter(augmentFunction -> augmentFunction.augmentFunction),
-            Codec.INT.fieldOf("cooldown").forGetter(augmentFunction -> augmentFunction.cooldown)
+            IntProvider.POSITIVE_CODEC.fieldOf("cooldown_int_provider").forGetter(augmentFunction -> augmentFunction.cooldownIntProvider)
         ).apply(instance, WithCooldownAugmentFunction::new)
     );
 
     private final AugmentFunction augmentFunction;
-    private final int cooldown;
+    private final IntProvider cooldownIntProvider;
     private long nextExecutionTick;
+    private boolean isRunningOnCooldown;
 
-    public WithCooldownAugmentFunction(AugmentFunction augmentFunction, int cooldown) {
+    public WithCooldownAugmentFunction(AugmentFunction augmentFunction, IntProvider cooldownIntProvider) {
         this.augmentFunction = augmentFunction;
-        this.cooldown = cooldown;
+        this.cooldownIntProvider = cooldownIntProvider;
         this.nextExecutionTick = 0;
+        this.isRunningOnCooldown = false;
     }
 
     @Override
@@ -34,15 +36,23 @@ public class WithCooldownAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public AugmentState run(AugmentExecutionContext context) {
-        if (context.serverWorld().getTime() >= nextExecutionTick) {
-            AugmentState augmentState = augmentFunction.run(context);
-
-            if (augmentState == AugmentState.ENDED) {
-                nextExecutionTick = context.serverWorld().getTime() + cooldown;
+    protected AugmentFunctionState run(AugmentExecutionContext context) {
+        if (context.time() < nextExecutionTick) {
+            return state = AugmentFunctionState.RUNNING;
+        } else { // context.time() >= nextExecutionTick
+            if (isRunningOnCooldown) {
+                isRunningOnCooldown = false;
+                return state = AugmentFunctionState.ENDED;
             }
-        }
 
-        return AugmentState.ENDED;
+            AugmentFunctionState nestedFunctionState = augmentFunction.tryStartingOrKeepRunning(context);
+
+            if (nestedFunctionState == AugmentFunctionState.ENDED) {
+                nextExecutionTick = context.time() + cooldownIntProvider.get(context.serverWorld().random);
+                isRunningOnCooldown = true;
+            }
+
+            return state = AugmentFunctionState.RUNNING;
+        }
     }
 }

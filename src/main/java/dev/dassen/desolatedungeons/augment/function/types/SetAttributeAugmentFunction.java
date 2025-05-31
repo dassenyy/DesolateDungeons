@@ -3,7 +3,7 @@ package dev.dassen.desolatedungeons.augment.function.types;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.dassen.desolatedungeons.augment.AugmentState;
+import dev.dassen.desolatedungeons.augment.AugmentFunctionState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
 import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
@@ -15,7 +15,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-public class SetAttributeAugmentFunction implements AugmentFunction {
+public class SetAttributeAugmentFunction extends AugmentFunction {
     public static final MapCodec<SetAttributeAugmentFunction> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             EntityAttribute.CODEC.fieldOf("attribute").forGetter(augmentFunction -> augmentFunction.attribute),
@@ -44,7 +44,7 @@ public class SetAttributeAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public AugmentState run(AugmentExecutionContext context) {
+    protected AugmentFunctionState run(AugmentExecutionContext context) {
         EntityAttributeInstance attributeInstance = context.serverPlayer().getAttributeInstance(attribute);
 
         if (attributeInstance != null && attributeInstance.getModifier(customIdentifier) == null) {
@@ -57,6 +57,6 @@ public class SetAttributeAugmentFunction implements AugmentFunction {
             );
         }
 
-        return AugmentState.ENDED;
+        return state = AugmentFunctionState.ENDED;
     }
 }

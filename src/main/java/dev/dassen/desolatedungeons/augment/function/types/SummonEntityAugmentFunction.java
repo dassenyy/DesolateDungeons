@@ -3,7 +3,7 @@ package dev.dassen.desolatedungeons.augment.function.types;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.dassen.desolatedungeons.DesolateDungeons;
-import dev.dassen.desolatedungeons.augment.AugmentState;
+import dev.dassen.desolatedungeons.augment.AugmentFunctionState;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
 import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
@@ -15,11 +15,10 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-public class SummonEntityAugmentFunction implements AugmentFunction {
+public class SummonEntityAugmentFunction extends AugmentFunction {
     public static final MapCodec<SummonEntityAugmentFunction> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             Identifier.CODEC.fieldOf("entity_type_identifier").forGetter(augmentFunction -> augmentFunction.entityTypeIdentifier),
@@ -41,7 +40,7 @@ public class SummonEntityAugmentFunction implements AugmentFunction {
     }
 
     @Override
-    public AugmentState run(AugmentExecutionContext context) {
+    protected AugmentFunctionState run(AugmentExecutionContext context) {
         EntityType<?> entityType = context.serverWorld().getRegistryManager()
             .getOrThrow(RegistryKeys.ENTITY_TYPE)
             .getOrThrow(RegistryKey.of(RegistryKeys.ENTITY_TYPE, entityTypeIdentifier))
@@ -75,6 +74,6 @@ public class SummonEntityAugmentFunction implements AugmentFunction {
             }
         }
 
-        return AugmentState.ENDED;
+        return state = AugmentFunctionState.ENDED;
     }
 }
