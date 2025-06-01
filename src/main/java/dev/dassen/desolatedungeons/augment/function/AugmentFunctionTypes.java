@@ -9,6 +9,10 @@ import net.minecraft.util.Identifier;
 public class AugmentFunctionTypes {
     public static final AugmentFunctionType<ConditionAugmentFunction> CONDITION =
         registerAugmentFunctionType("condition", new AugmentFunctionType<>(ConditionAugmentFunction.CODEC));
+    public static final AugmentFunctionType<IterateAugmentFunction> ITERATE =
+        registerAugmentFunctionType("iterate", new AugmentFunctionType<>(IterateAugmentFunction.CODEC));
+    public static final AugmentFunctionType<RandomAugmentFunction> RANDOM =
+        registerAugmentFunctionType("random", new AugmentFunctionType<>(RandomAugmentFunction.CODEC));
     public static final AugmentFunctionType<RemoveAttributeAugmentFunction> REMOVE_ATTRIBUTE =
         registerAugmentFunctionType("remove_attribute", new AugmentFunctionType<>(RemoveAttributeAugmentFunction.CODEC));
     public static final AugmentFunctionType<SetAttributeAugmentFunction> SET_ATTRIBUTE =

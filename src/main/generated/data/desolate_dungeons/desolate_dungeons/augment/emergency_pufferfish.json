@@ -14,7 +14,7 @@
         "type": "desolate_dungeons:summon_entity",
         "entity_type_identifier": "minecraft:pufferfish"
       },
-      "cooldown": 50
+      "cooldown_int_provider": 50
     }
   },
   "name": "Emergency Pufferfish"

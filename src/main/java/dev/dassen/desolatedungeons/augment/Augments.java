@@ -14,7 +14,6 @@ import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.List;
-import java.util.Optional;
 
 public class Augments {
     public static final Augment DAMAGE = new Augment(
@@ -33,8 +32,7 @@ public class Augments {
             new WithCooldownAugmentFunction(
                 new SummonEntityAugmentFunction(Identifier.of("minecraft", "pufferfish"), new NbtCompound()),
                 ConstantIntProvider.create(50)
-            ),
-            Optional.empty()
+            )
         )
     );
     public static final Augment MINER_MANIA = new Augment(
@@ -59,7 +57,7 @@ public class Augments {
                     20
                 )
             )),
-            Optional.of(new SequenceAugmentFunction(List.of(
+            new SequenceAugmentFunction(List.of(
                 new RemoveAttributeAugmentFunction(
                     EntityAttributes.BLOCK_BREAK_SPEED,
                     Identifier.of(DesolateDungeons.MOD_ID, "augment_function_miner_mania_block_break_speed")
@@ -68,7 +66,7 @@ public class Augments {
                     EntityAttributes.BLOCK_INTERACTION_RANGE,
                     Identifier.of(DesolateDungeons.MOD_ID, "augment_function_miner_mania_block_interaction_range")
                 )
-            )))
+            ))
         )
     );
     public static final Augment SPEED = new Augment(

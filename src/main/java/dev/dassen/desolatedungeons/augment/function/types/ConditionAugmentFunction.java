@@ -9,26 +9,29 @@ import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 public class ConditionAugmentFunction extends AugmentFunction {
     public static final MapCodec<ConditionAugmentFunction> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             AugmentCondition.CODEC.fieldOf("augment_condition").forGetter(augmentFunction -> augmentFunction.augmentCondition),
             AugmentFunction.CODEC.fieldOf("if_true_augment_function").forGetter(augmentFunction -> augmentFunction.ifTrueAugmentFunction),
-            AugmentFunction.CODEC.optionalFieldOf("if_false_augment_function").forGetter(augmentFunction -> augmentFunction.ifFalseAugmentFunction)
+            AugmentFunction.CODEC.optionalFieldOf("if_false_augment_function", null).forGetter(augmentFunction -> augmentFunction.ifFalseAugmentFunction)
         ).apply(instance, ConditionAugmentFunction::new)
     );
 
     private final AugmentCondition augmentCondition;
     private final AugmentFunction ifTrueAugmentFunction;
-    private final Optional<AugmentFunction> ifFalseAugmentFunction;
+    private final @Nullable AugmentFunction ifFalseAugmentFunction;
 
-    public ConditionAugmentFunction(AugmentCondition augmentCondition, AugmentFunction ifTrueAugmentFunction, Optional<AugmentFunction> ifFalseAugmentFunction) {
+    public ConditionAugmentFunction(AugmentCondition augmentCondition, AugmentFunction ifTrueAugmentFunction, @Nullable AugmentFunction ifFalseAugmentFunction) {
         this.augmentCondition = augmentCondition;
         this.ifTrueAugmentFunction = ifTrueAugmentFunction;
         this.ifFalseAugmentFunction = ifFalseAugmentFunction;
+    }
+
+    public ConditionAugmentFunction(AugmentCondition augmentCondition, AugmentFunction ifTrueAugmentFunction) {
+        this(augmentCondition, ifTrueAugmentFunction, null);
     }
 
 
@@ -42,16 +45,16 @@ public class ConditionAugmentFunction extends AugmentFunction {
         if (ifTrueAugmentFunction.getState() == AugmentFunctionState.RUNNING) {
             AugmentFunctionState nestedFunctionState = ifTrueAugmentFunction.tryStartingOrKeepRunning(context);
             return state = nestedFunctionState;
-        } else if (ifFalseAugmentFunction.isPresent() && ifFalseAugmentFunction.get().getState() == AugmentFunctionState.RUNNING) {
-            AugmentFunctionState nestedFunctionState = ifFalseAugmentFunction.get().tryStartingOrKeepRunning(context);
+        } else if (ifFalseAugmentFunction != null && ifFalseAugmentFunction.getState() == AugmentFunctionState.RUNNING) {
+            AugmentFunctionState nestedFunctionState = ifFalseAugmentFunction.tryStartingOrKeepRunning(context);
             return state = nestedFunctionState;
         }
 
         if (augmentCondition.test(context)) {
             AugmentFunctionState nestedFunctionState = ifTrueAugmentFunction.tryStartingOrKeepRunning(context);
             return state = nestedFunctionState;
-        } else if (ifFalseAugmentFunction.isPresent()) {
-            AugmentFunctionState nestedFunctionState = ifFalseAugmentFunction.get().tryStartingOrKeepRunning(context);
+        } else if (ifFalseAugmentFunction != null) {
+            AugmentFunctionState nestedFunctionState = ifFalseAugmentFunction.tryStartingOrKeepRunning(context);
             return state = nestedFunctionState;
         }
 

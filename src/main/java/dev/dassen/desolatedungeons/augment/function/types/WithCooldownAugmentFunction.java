@@ -21,13 +21,11 @@ public class WithCooldownAugmentFunction extends AugmentFunction {
     private final AugmentFunction augmentFunction;
     private final IntProvider cooldownIntProvider;
     private long nextExecutionTick;
-    private boolean isRunningOnCooldown;
 
     public WithCooldownAugmentFunction(AugmentFunction augmentFunction, IntProvider cooldownIntProvider) {
         this.augmentFunction = augmentFunction;
         this.cooldownIntProvider = cooldownIntProvider;
         this.nextExecutionTick = 0;
-        this.isRunningOnCooldown = false;
     }
 
     @Override
@@ -40,16 +38,11 @@ public class WithCooldownAugmentFunction extends AugmentFunction {
         if (context.time() < nextExecutionTick) {
             return state = AugmentFunctionState.RUNNING;
         } else { // context.time() >= nextExecutionTick
-            if (isRunningOnCooldown) {
-                isRunningOnCooldown = false;
-                return state = AugmentFunctionState.ENDED;
-            }
-
             AugmentFunctionState nestedFunctionState = augmentFunction.tryStartingOrKeepRunning(context);
 
             if (nestedFunctionState == AugmentFunctionState.ENDED) {
                 nextExecutionTick = context.time() + cooldownIntProvider.get(context.serverWorld().random);
-                isRunningOnCooldown = true;
+                return state = AugmentFunctionState.ENDED;
             }
 
             return state = AugmentFunctionState.RUNNING;
