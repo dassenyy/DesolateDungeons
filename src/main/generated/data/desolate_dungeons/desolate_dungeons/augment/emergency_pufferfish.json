@@ -11,10 +11,43 @@
     "if_true_augment_function": {
       "type": "desolate_dungeons:with_cooldown",
       "augment_function": {
-        "type": "desolate_dungeons:summon_entity",
-        "entity_type_identifier": "minecraft:pufferfish"
+        "type": "desolate_dungeons:random",
+        "weighted_augment_functions": [
+          {
+            "augment_function": {
+              "type": "desolate_dungeons:summon_entity",
+              "entity_string_nbt": "{PuffState:2,Motion:[0.25d,0.75d,0.25d]}",
+              "entity_type_identifier": "minecraft:pufferfish"
+            },
+            "weight": 1
+          },
+          {
+            "augment_function": {
+              "type": "desolate_dungeons:summon_entity",
+              "entity_string_nbt": "{PuffState:2,Motion:[-0.25d,0.75d,0.25d]}",
+              "entity_type_identifier": "minecraft:pufferfish"
+            },
+            "weight": 1
+          },
+          {
+            "augment_function": {
+              "type": "desolate_dungeons:summon_entity",
+              "entity_string_nbt": "{PuffState:2,Motion:[0.25d,0.75d,-0.25d]}",
+              "entity_type_identifier": "minecraft:pufferfish"
+            },
+            "weight": 1
+          },
+          {
+            "augment_function": {
+              "type": "desolate_dungeons:summon_entity",
+              "entity_string_nbt": "{PuffState:2,Motion:[-0.25d,0.75d,-0.25d]}",
+              "entity_type_identifier": "minecraft:pufferfish"
+            },
+            "weight": 1
+          }
+        ]
       },
-      "cooldown_int_provider": 50
+      "cooldown_int_provider": 5
     }
   },
   "name": "Emergency Pufferfish"

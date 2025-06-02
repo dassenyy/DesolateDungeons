@@ -1,5 +1,7 @@
 package dev.dassen.desolatedungeons.augment.function.types;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.dassen.desolatedungeons.DesolateDungeons;
@@ -13,6 +15,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
@@ -22,16 +25,21 @@ public class SummonEntityAugmentFunction extends AugmentFunction {
     public static final MapCodec<SummonEntityAugmentFunction> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             Identifier.CODEC.fieldOf("entity_type_identifier").forGetter(augmentFunction -> augmentFunction.entityTypeIdentifier),
-            NbtCompound.CODEC.optionalFieldOf("entity_nbt", new NbtCompound()).forGetter(augmentFunction -> augmentFunction.entityNbt)
+            Codec.STRING.optionalFieldOf("entity_string_nbt", "").forGetter(augmentFunction -> augmentFunction.entityStringNbt)
         ).apply(instance, SummonEntityAugmentFunction::new)
     );
 
     private final Identifier entityTypeIdentifier;
-    private final NbtCompound entityNbt;
+    private final String entityStringNbt;
 
-    public SummonEntityAugmentFunction(Identifier entityTypeIdentifier, NbtCompound entityNbt) {
+    public SummonEntityAugmentFunction(Identifier entityTypeIdentifier, String entityStringNbt) {
         this.entityTypeIdentifier = entityTypeIdentifier;
-        this.entityNbt = entityNbt;
+        this.entityStringNbt = entityStringNbt;
+    }
+
+    public SummonEntityAugmentFunction(Identifier entityTypeIdentifier) {
+        this.entityTypeIdentifier = entityTypeIdentifier;
+        this.entityStringNbt = "";
     }
 
     @Override
@@ -47,6 +55,17 @@ public class SummonEntityAugmentFunction extends AugmentFunction {
             .value();
         if (!entityType.isSummonable()) {
             DesolateDungeons.LOGGER.warn("EntityType with Identifier {} is not summonable", entityTypeIdentifier);
+        }
+
+        NbtCompound entityNbt = new NbtCompound();
+        try {
+            entityNbt = StringNbtReader.parse(entityStringNbt);
+        } catch (CommandSyntaxException e) {
+            DesolateDungeons.LOGGER.warn(
+                "SummonEntityAugmentFunction failed to parse this String-NBT {} of the entity {}",
+                entityStringNbt,
+                entityTypeIdentifier
+            );
         }
 
         boolean initialize = entityNbt.isEmpty();

@@ -1,5 +1,6 @@
 package dev.dassen.desolatedungeons.augment;
 
+import com.mojang.datafixers.util.Pair;
 import dev.dassen.desolatedungeons.DesolateDungeons;
 import dev.dassen.desolatedungeons.augment.condition.types.YCoordinateInBetweenAugmentCondition;
 import dev.dassen.desolatedungeons.augment.function.types.*;
@@ -7,7 +8,6 @@ import dev.dassen.desolatedungeons.registry.key.AugmentKeys;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registerable;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
@@ -30,8 +30,37 @@ public class Augments {
         new ConditionAugmentFunction(
             new YCoordinateInBetweenAugmentCondition(UniformIntProvider.create(333, 333)),
             new WithCooldownAugmentFunction(
-                new SummonEntityAugmentFunction(Identifier.of("minecraft", "pufferfish"), new NbtCompound()),
-                ConstantIntProvider.create(50)
+                new RandomAugmentFunction(List.of(
+                    Pair.of(
+                        new SummonEntityAugmentFunction(
+                            Identifier.of("minecraft", "pufferfish"),
+                            "{PuffState:2,Motion:[0.25d,0.75d,0.25d]}"
+                        ),
+                        1
+                    ),
+                    Pair.of(
+                        new SummonEntityAugmentFunction(
+                            Identifier.of("minecraft", "pufferfish"),
+                            "{PuffState:2,Motion:[-0.25d,0.75d,0.25d]}"
+                        ),
+                        1
+                    ),
+                    Pair.of(
+                        new SummonEntityAugmentFunction(
+                            Identifier.of("minecraft", "pufferfish"),
+                            "{PuffState:2,Motion:[0.25d,0.75d,-0.25d]}"
+                        ),
+                        1
+                    ),
+                    Pair.of(
+                        new SummonEntityAugmentFunction(
+                            Identifier.of("minecraft", "pufferfish"),
+                            "{PuffState:2,Motion:[-0.25d,0.75d,-0.25d]}"
+                        ),
+                        1
+                    )
+                )),
+                ConstantIntProvider.create(5)
             )
         )
     );
