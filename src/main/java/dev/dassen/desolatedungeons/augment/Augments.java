@@ -2,7 +2,8 @@ package dev.dassen.desolatedungeons.augment;
 
 import com.mojang.datafixers.util.Pair;
 import dev.dassen.desolatedungeons.DesolateDungeons;
-import dev.dassen.desolatedungeons.augment.condition.types.YCoordinateInBetweenAugmentCondition;
+import dev.dassen.desolatedungeons.augment.condition.types.ValueInBetweenAugmentCondition;
+import dev.dassen.desolatedungeons.augment.context.ContextValue;
 import dev.dassen.desolatedungeons.augment.function.types.*;
 import dev.dassen.desolatedungeons.registry.key.AugmentKeys;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -10,8 +11,8 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.Registerable;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.floatprovider.UniformFloatProvider;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.List;
 
@@ -27,47 +28,51 @@ public class Augments {
     );
     public static final Augment EMERGENCY_PUFFERFISH = new Augment(
         "Emergency Pufferfish",
-        new ConditionAugmentFunction(
-            new YCoordinateInBetweenAugmentCondition(UniformIntProvider.create(333, 333)),
-            new WithCooldownAugmentFunction(
-                new RandomAugmentFunction(List.of(
-                    Pair.of(
-                        new SummonEntityAugmentFunction(
-                            Identifier.of("minecraft", "pufferfish"),
-                            "{PuffState:2,Motion:[0.25d,0.75d,0.25d]}"
+        new WithCooldownAugmentFunction(
+            new ConditionAugmentFunction(
+                new ValueInBetweenAugmentCondition(ContextValue.PLAYER_HEALTH, UniformFloatProvider.create(0f, 8f)),
+                new IterateAugmentFunction(
+                    new RandomAugmentFunction(List.of(
+                        Pair.of(
+                            new SummonEntityAugmentFunction(
+                                Identifier.of("minecraft", "pufferfish"),
+                                "{PuffState:2,Motion:[0.25d,0.75d,0.25d]}"
+                            ),
+                            1
                         ),
-                        1
-                    ),
-                    Pair.of(
-                        new SummonEntityAugmentFunction(
-                            Identifier.of("minecraft", "pufferfish"),
-                            "{PuffState:2,Motion:[-0.25d,0.75d,0.25d]}"
+                        Pair.of(
+                            new SummonEntityAugmentFunction(
+                                Identifier.of("minecraft", "pufferfish"),
+                                "{PuffState:2,Motion:[-0.25d,0.75d,0.25d]}"
+                            ),
+                            1
                         ),
-                        1
-                    ),
-                    Pair.of(
-                        new SummonEntityAugmentFunction(
-                            Identifier.of("minecraft", "pufferfish"),
-                            "{PuffState:2,Motion:[0.25d,0.75d,-0.25d]}"
+                        Pair.of(
+                            new SummonEntityAugmentFunction(
+                                Identifier.of("minecraft", "pufferfish"),
+                                "{PuffState:2,Motion:[0.25d,0.75d,-0.25d]}"
+                            ),
+                            1
                         ),
-                        1
-                    ),
-                    Pair.of(
-                        new SummonEntityAugmentFunction(
-                            Identifier.of("minecraft", "pufferfish"),
-                            "{PuffState:2,Motion:[-0.25d,0.75d,-0.25d]}"
-                        ),
-                        1
-                    )
-                )),
-                ConstantIntProvider.create(5)
-            )
+                        Pair.of(
+                            new SummonEntityAugmentFunction(
+                                Identifier.of("minecraft", "pufferfish"),
+                                "{PuffState:2,Motion:[-0.25d,0.75d,-0.25d]}"
+                            ),
+                            1
+                        )
+                    )),
+                    ConstantIntProvider.create(5),
+                    ConstantIntProvider.create(4)
+                )
+            ),
+            ConstantIntProvider.create(900)
         )
     );
     public static final Augment MINER_MANIA = new Augment(
         "Miner Mania",
         new ConditionAugmentFunction(
-            new YCoordinateInBetweenAugmentCondition(UniformIntProvider.create(0, 192)),
+            new ValueInBetweenAugmentCondition(ContextValue.PLAYER_Y_COORDINATE, UniformFloatProvider.create(0f, 192f)),
             new SequenceAugmentFunction(List.of(
                 new SetAttributeAugmentFunction(
                     EntityAttributes.BLOCK_BREAK_SPEED,

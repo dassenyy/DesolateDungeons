@@ -1,6 +1,7 @@
 package dev.dassen.desolatedungeons.augment;
 
 import dev.dassen.desolatedungeons.DesolateDungeons;
+import dev.dassen.desolatedungeons.augment.context.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.networking.packet.OfferAugmentsPayload;
 import dev.dassen.desolatedungeons.registry.key.ModRegistryKeys;
 import dev.dassen.desolatedungeons.registry.tag.AugmentTags;

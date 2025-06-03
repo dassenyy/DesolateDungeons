@@ -2,11 +2,12 @@
   "augment_function": {
     "type": "desolate_dungeons:condition",
     "augment_condition": {
-      "type": "desolate_dungeons:y_coordinate_in_between",
-      "y_coordinate_int_provider": {
-        "max_inclusive": 192,
-        "min_inclusive": 0
-      }
+      "type": "desolate_dungeons:value_in_between",
+      "uniform_float_provider": {
+        "max_exclusive": 192.0,
+        "min_inclusive": 0.0
+      },
+      "value": "player_y_coordinate"
     },
     "if_false_augment_function": {
       "type": "desolate_dungeons:sequence",

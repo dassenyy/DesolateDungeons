@@ -5,9 +5,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.dassen.desolatedungeons.DesolateDungeons;
-import dev.dassen.desolatedungeons.augment.AugmentFunctionState;
+import dev.dassen.desolatedungeons.augment.context.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
-import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import net.minecraft.entity.Entity;
@@ -48,7 +47,7 @@ public class SummonEntityAugmentFunction extends AugmentFunction {
     }
 
     @Override
-    protected AugmentFunctionState run(AugmentExecutionContext context) {
+    protected State run(AugmentExecutionContext context) {
         EntityType<?> entityType = context.serverWorld().getRegistryManager()
             .getOrThrow(RegistryKeys.ENTITY_TYPE)
             .getOrThrow(RegistryKey.of(RegistryKeys.ENTITY_TYPE, entityTypeIdentifier))
@@ -93,6 +92,6 @@ public class SummonEntityAugmentFunction extends AugmentFunction {
             }
         }
 
-        return state = AugmentFunctionState.ENDED;
+        return state = State.ENDED;
     }
 }

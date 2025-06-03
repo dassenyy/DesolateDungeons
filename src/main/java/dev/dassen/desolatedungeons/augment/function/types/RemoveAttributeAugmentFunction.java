@@ -2,9 +2,8 @@ package dev.dassen.desolatedungeons.augment.function.types;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.dassen.desolatedungeons.augment.AugmentFunctionState;
+import dev.dassen.desolatedungeons.augment.context.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
-import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -35,13 +34,13 @@ public class RemoveAttributeAugmentFunction extends AugmentFunction {
     }
 
     @Override
-    protected AugmentFunctionState run(AugmentExecutionContext context) {
+    protected State run(AugmentExecutionContext context) {
         EntityAttributeInstance attributeInstance = context.serverPlayer().getAttributeInstance(attribute);
 
         if (attributeInstance != null && attributeInstance.getModifier(customIdentifier) != null) {
             attributeInstance.removeModifier(customIdentifier);
         }
 
-        return state = AugmentFunctionState.ENDED;
+        return state = State.ENDED;
     }
 }

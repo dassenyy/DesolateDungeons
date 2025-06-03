@@ -2,9 +2,8 @@ package dev.dassen.desolatedungeons.augment.function.types;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.dassen.desolatedungeons.augment.AugmentFunctionState;
+import dev.dassen.desolatedungeons.augment.context.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
-import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import net.minecraft.util.math.intprovider.IntProvider;
@@ -34,18 +33,18 @@ public class WithCooldownAugmentFunction extends AugmentFunction {
     }
 
     @Override
-    protected AugmentFunctionState run(AugmentExecutionContext context) {
+    protected State run(AugmentExecutionContext context) {
         if (context.time() < nextExecutionTick) {
-            return state = AugmentFunctionState.RUNNING;
+            return state = State.RUNNING;
         } else { // context.time() >= nextExecutionTick
-            AugmentFunctionState nestedFunctionState = augmentFunction.tryStartingOrKeepRunning(context);
+            State nestedFunctionState = augmentFunction.tryStartingOrKeepRunning(context);
 
-            if (nestedFunctionState == AugmentFunctionState.ENDED) {
+            if (nestedFunctionState == State.ENDED) {
                 nextExecutionTick = context.time() + cooldownIntProvider.get(context.serverWorld().random);
-                return state = AugmentFunctionState.ENDED;
+                return state = State.ENDED;
             }
 
-            return state = AugmentFunctionState.RUNNING;
+            return state = State.RUNNING;
         }
     }
 }

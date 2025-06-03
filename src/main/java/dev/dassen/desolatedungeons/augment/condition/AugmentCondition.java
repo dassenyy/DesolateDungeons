@@ -1,7 +1,7 @@
 package dev.dassen.desolatedungeons.augment.condition;
 
 import com.mojang.serialization.Codec;
-import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
+import dev.dassen.desolatedungeons.augment.context.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.registry.ModRegistries;
 import org.jetbrains.annotations.NotNull;
 

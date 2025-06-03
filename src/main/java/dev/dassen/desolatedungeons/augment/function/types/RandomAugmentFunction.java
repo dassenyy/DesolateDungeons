@@ -4,8 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
-import dev.dassen.desolatedungeons.augment.AugmentFunctionState;
+import dev.dassen.desolatedungeons.augment.context.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
@@ -40,10 +39,10 @@ public class RandomAugmentFunction extends AugmentFunction {
     }
 
     @Override
-    protected AugmentFunctionState run(AugmentExecutionContext context) {
+    protected State run(AugmentExecutionContext context) {
         if (runningAugmentFunction != null) {
-            AugmentFunctionState nestedFunctionState = runningAugmentFunction.tryStartingOrKeepRunning(context);
-            if (nestedFunctionState == AugmentFunctionState.ENDED) { runningAugmentFunction = null; }
+            State nestedFunctionState = runningAugmentFunction.tryStartingOrKeepRunning(context);
+            if (nestedFunctionState == State.ENDED) { runningAugmentFunction = null; }
             return state = nestedFunctionState;
         }
 
@@ -54,11 +53,11 @@ public class RandomAugmentFunction extends AugmentFunction {
             cumulativeWeight += weightedAugment.getSecond();
             if (cumulativeWeight <= randomWeight) { continue; }
 
-            AugmentFunctionState nestedFunctionState = weightedAugment.getFirst().tryStartingOrKeepRunning(context);
-            if (nestedFunctionState == AugmentFunctionState.RUNNING) { runningAugmentFunction = weightedAugment.getFirst(); }
+            State nestedFunctionState = weightedAugment.getFirst().tryStartingOrKeepRunning(context);
+            if (nestedFunctionState == State.RUNNING) { runningAugmentFunction = weightedAugment.getFirst(); }
             return state = nestedFunctionState;
         }
 
-        return state = AugmentFunctionState.RUNNING;
+        return state = State.RUNNING;
     }
 }

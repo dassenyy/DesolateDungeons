@@ -2,10 +2,9 @@ package dev.dassen.desolatedungeons.augment.function.types;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.dassen.desolatedungeons.augment.AugmentFunctionState;
 import dev.dassen.desolatedungeons.augment.condition.AugmentCondition;
+import dev.dassen.desolatedungeons.augment.context.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
-import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import org.jetbrains.annotations.NotNull;
@@ -48,23 +47,23 @@ public class ConditionAugmentFunction extends AugmentFunction {
     }
 
     @Override
-    protected AugmentFunctionState run(AugmentExecutionContext context) {
-        if (ifTrueAugmentFunction.getState() == AugmentFunctionState.RUNNING) {
-            AugmentFunctionState nestedFunctionState = ifTrueAugmentFunction.tryStartingOrKeepRunning(context);
+    protected State run(AugmentExecutionContext context) {
+        if (ifTrueAugmentFunction.getState() == State.RUNNING) {
+            State nestedFunctionState = ifTrueAugmentFunction.tryStartingOrKeepRunning(context);
             return state = nestedFunctionState;
-        } else if (ifFalseAugmentFunction.isPresent() && ifFalseAugmentFunction.get().getState() == AugmentFunctionState.RUNNING) {
-            AugmentFunctionState nestedFunctionState = ifFalseAugmentFunction.get().tryStartingOrKeepRunning(context);
+        } else if (ifFalseAugmentFunction.isPresent() && ifFalseAugmentFunction.get().getState() == State.RUNNING) {
+            State nestedFunctionState = ifFalseAugmentFunction.get().tryStartingOrKeepRunning(context);
             return state = nestedFunctionState;
         }
 
         if (augmentCondition.test(context)) {
-            AugmentFunctionState nestedFunctionState = ifTrueAugmentFunction.tryStartingOrKeepRunning(context);
+            State nestedFunctionState = ifTrueAugmentFunction.tryStartingOrKeepRunning(context);
             return state = nestedFunctionState;
         } else if (ifFalseAugmentFunction.isPresent()) {
-            AugmentFunctionState nestedFunctionState = ifFalseAugmentFunction.get().tryStartingOrKeepRunning(context);
+            State nestedFunctionState = ifFalseAugmentFunction.get().tryStartingOrKeepRunning(context);
             return state = nestedFunctionState;
         }
 
-        return state = AugmentFunctionState.RUNNING;
+        return state = State.RUNNING;
     }
 }

@@ -3,9 +3,8 @@ package dev.dassen.desolatedungeons.augment.function.types;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.dassen.desolatedungeons.augment.AugmentFunctionState;
+import dev.dassen.desolatedungeons.augment.context.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunction;
-import dev.dassen.desolatedungeons.augment.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionType;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
@@ -60,23 +59,23 @@ public class IterateAugmentFunction extends AugmentFunction {
     }
 
     @Override
-    protected AugmentFunctionState run(AugmentExecutionContext context) {
-        if (state == AugmentFunctionState.ENDED) {
+    protected State run(AugmentExecutionContext context) {
+        if (state == State.ENDED) {
             iterations = iterationIntProvider.get(context.serverWorld().random);
             currentIteration = 0;
             nextExecutionTick = startWithInterval ? context.time() + intervalTicksIntProvider.get(context.serverWorld().random) : context.time();
         }
 
         if (context.time() >= nextExecutionTick) {
-            AugmentFunctionState nestedFunctionState = augmentFunction.tryStartingOrKeepRunning(context);
+            State nestedFunctionState = augmentFunction.tryStartingOrKeepRunning(context);
 
-            if (nestedFunctionState == AugmentFunctionState.ENDED) {
+            if (nestedFunctionState == State.ENDED) {
                 currentIteration++;
-                if (currentIteration >= iterations) { return state = AugmentFunctionState.ENDED; }
+                if (currentIteration >= iterations) { return state = State.ENDED; }
                 nextExecutionTick = context.time() + intervalTicksIntProvider.get(context.serverWorld().random);
             }
         }
 
-        return state = AugmentFunctionState.RUNNING;
+        return state = State.RUNNING;
     }
 }
