@@ -3,6 +3,7 @@ package dev.dassen.desolatedungeons;
 import dev.dassen.desolatedungeons.augment.condition.AugmentConditionTypes;
 import dev.dassen.desolatedungeons.augment.function.AugmentFunctionTypes;
 import dev.dassen.desolatedungeons.block.ModBlocks;
+import dev.dassen.desolatedungeons.command.ModCommandManager;
 import dev.dassen.desolatedungeons.entity.ModEntities;
 import dev.dassen.desolatedungeons.item.ModItemGroups;
 import dev.dassen.desolatedungeons.item.ModItems;
@@ -34,6 +35,8 @@ public class DesolateDungeons implements ModInitializer {
 		ModItemGroups.register();
 		ModItems.register();
 		ModBlocks.register();
+
+		ModCommandManager.register();
 
 		AugmentFunctionTypes.register();
 		AugmentConditionTypes.register();

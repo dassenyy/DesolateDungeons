@@ -48,5 +48,11 @@
   "item.desolate_dungeons.polished_limestone_wall": "Polished Limestone Wall",
   "item.desolate_dungeons.peridotite": "Peridotite",
 
-  "entity.desolate_dungeons.scarab_beetle": "Scarab Beetle"
+  "entity.desolate_dungeons.scarab_beetle": "Scarab Beetle",
+
+  "commands.desolate_dungeons.augment.add.success.multiple": "Gave %s to %s players",
+  "commands.desolate_dungeons.augment.add.success.single": "Gave %s to %s",
+  "commands.desolate_dungeons.augment.remove.success.multiple": "Removed %s from %s players",
+  "commands.desolate_dungeons.augment.remove.success.single": "Removed %s from %s",
+  "commands.desolate_dungeons.augment.query": "%s has %s augments: %s"
 }

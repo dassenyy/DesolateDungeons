@@ -29,13 +29,21 @@ public class AugmentInventory {
         this.player = player;
     }
 
-    private void add(RegistryEntry<Augment> augment) {
+    public void add(RegistryEntry<Augment> augment) {
         if (augment instanceof RegistryEntry.Reference<Augment> augmentReference) {
             inventory.put(augmentReference.registryKey(), augment);
         } else {
             // Direct registry entry never has a key
             DesolateDungeons.LOGGER.warn("Could not add augment {} to augment inventory as it does not have a registry key", augment.value().name);
         }
+    }
+
+    public void remove(RegistryKey<Augment> augmentRegistryKey) {
+        inventory.remove(augmentRegistryKey);
+    }
+
+    public int getSize() {
+        return inventory.size();
     }
 
     public void offerAugments(int addedLevel, int currentLevel) {
@@ -99,5 +107,14 @@ public class AugmentInventory {
         }
 
         return nbtList;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("{");
+        inventory.keySet().forEach(augmentKey -> builder.append(augmentKey.getValue()).append(", "));
+        if (builder.length() > 1) { builder.setLength(builder.length() - 2); }
+        builder.append("}");
+        return builder.toString();
     }
 }
