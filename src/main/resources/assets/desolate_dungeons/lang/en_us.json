@@ -50,6 +50,17 @@
 
   "entity.desolate_dungeons.scarab_beetle": "Scarab Beetle",
 
+  "desolate_dungeons.augment.desolate_dungeons.damage": "Damage",
+  "desolate_dungeons.augment.desolate_dungeons.damage.description": "Gain +2 damage",
+  "desolate_dungeons.augment.desolate_dungeons.emergency_pufferfish": "Emergency Pufferfish",
+  "desolate_dungeons.augment.desolate_dungeons.emergency_pufferfish.description":
+    "When falling below 4 hearts briefly become invisible, invincible and summon 5 pufferfish to aid you",
+  "desolate_dungeons.augment.desolate_dungeons.miner_mania": "Miner Mania",
+  "desolate_dungeons.augment.desolate_dungeons.miner_mania.description":
+    "When you are below Y 192 get higher block breaking speed, block interaction range, and night vision",
+  "desolate_dungeons.augment.desolate_dungeons.speed": "Speed",
+  "desolate_dungeons.augment.desolate_dungeons.speed.description": "Gain +50% speed",
+
   "commands.desolate_dungeons.augment.add.success.multiple": "Gave %s to %s players",
   "commands.desolate_dungeons.augment.add.success.single": "Gave %s to %s",
   "commands.desolate_dungeons.augment.remove.success.multiple": "Removed %s from %s players",

@@ -18,7 +18,6 @@ import java.util.List;
 
 public class Augments {
     public static final Augment DAMAGE = new Augment(
-        "Damage",
         new SetAttributeAugmentFunction(
             EntityAttributes.ATTACK_DAMAGE,
             Identifier.of(DesolateDungeons.MOD_ID, "augment_function_damage"),
@@ -27,7 +26,6 @@ public class Augments {
         )
     );
     public static final Augment EMERGENCY_PUFFERFISH = new Augment(
-        "Emergency Pufferfish",
         new WithCooldownAugmentFunction(
             new ConditionAugmentFunction(
                 new ValueInBetweenAugmentCondition(ContextValue.PLAYER_HEALTH, UniformFloatProvider.create(0f, 8f)),
@@ -70,7 +68,6 @@ public class Augments {
         )
     );
     public static final Augment MINER_MANIA = new Augment(
-        "Miner Mania",
         new ConditionAugmentFunction(
             new ValueInBetweenAugmentCondition(ContextValue.PLAYER_Y_COORDINATE, UniformFloatProvider.create(0f, 192f)),
             new SequenceAugmentFunction(List.of(
@@ -104,7 +101,6 @@ public class Augments {
         )
     );
     public static final Augment SPEED = new Augment(
-        "Speed",
         new SetAttributeAugmentFunction(
             EntityAttributes.MOVEMENT_SPEED,
             Identifier.of(DesolateDungeons.MOD_ID, "augment_function_speed"),

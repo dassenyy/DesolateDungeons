@@ -79,7 +79,7 @@ public class AugmentCommand {
         source.sendFeedback(
             () -> Text.translatable(
                 "commands.desolate_dungeons.augment.add.success." + (targets.size() == 1 ? "single" : "multiple"),
-                augment.value().name,
+                Augment.toHoverableText(augment),
                 targets.size() == 1 ? targets.iterator().next().getDisplayName() : targets.size()
             ),
             true
@@ -96,7 +96,7 @@ public class AugmentCommand {
         source.sendFeedback(
             () -> Text.translatable(
                 "commands.desolate_dungeons.augment.remove.success." + (targets.size() == 1 ? "single" : "multiple"),
-                augment.value().name,
+                Augment.toHoverableText(augment),
                 targets.size() == 1 ? targets.iterator().next().getDisplayName() : targets.size()
             ),
             true
@@ -111,7 +111,7 @@ public class AugmentCommand {
                 "commands.desolate_dungeons.augment.query",
                 target.getDisplayName(),
                 ((AugmentImpl) target).getAugmentInventory().getSize(),
-                ((AugmentImpl) target).getAugmentInventory().toString()
+                ((AugmentImpl) target).getAugmentInventory().toHoverableText()
             ),
             false
         );

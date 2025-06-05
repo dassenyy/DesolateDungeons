@@ -1,6 +1,5 @@
 package dev.dassen.desolatedungeons.augment;
 
-import dev.dassen.desolatedungeons.DesolateDungeons;
 import dev.dassen.desolatedungeons.augment.context.AugmentExecutionContext;
 import dev.dassen.desolatedungeons.networking.packet.OfferAugmentsPayload;
 import dev.dassen.desolatedungeons.registry.key.ModRegistryKeys;
@@ -14,6 +13,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,21 +22,16 @@ import java.util.*;
 
 public class AugmentInventory {
     // Both inventory and offered need to be reworked to contain some sort of "AugmentStack" instead, similar to ItemStack
-    private final HashMap<RegistryKey<Augment>, RegistryEntry<Augment>> inventory = new HashMap<>();
-    private final ArrayList<@Nullable RegistryEntry<Augment>> offered = new ArrayList<>();
+    private final HashMap<RegistryKey<Augment>, RegistryEntry.Reference<Augment>> inventory = new HashMap<>();
+    private final ArrayList<RegistryEntry.@Nullable Reference<Augment>> offered = new ArrayList<>();
     public final PlayerEntity player;
 
     public AugmentInventory(PlayerEntity player) {
         this.player = player;
     }
 
-    public void add(RegistryEntry<Augment> augment) {
-        if (augment instanceof RegistryEntry.Reference<Augment> augmentReference) {
-            inventory.put(augmentReference.registryKey(), augment);
-        } else {
-            // Direct registry entry never has a key
-            DesolateDungeons.LOGGER.warn("Could not add augment {} to augment inventory as it does not have a registry key", augment.value().name);
-        }
+    public void add(RegistryEntry.Reference<Augment> augment) {
+        inventory.put(augment.registryKey(), augment);
     }
 
     public void remove(RegistryKey<Augment> augmentRegistryKey) {
@@ -50,8 +46,10 @@ public class AugmentInventory {
         if (player instanceof ServerPlayerEntity serverPlayer) {
             Registry<Augment> augmentRegistry = serverPlayer.getWorld().getRegistryManager().getOrThrow(ModRegistryKeys.AUGMENT);
 
-            List<RegistryEntry<Augment>> augments = new ArrayList<>();
-            augmentRegistry.iterateEntries(AugmentTags.DESOLATE_DUNGEONS_SET).forEach(augments::add);
+            List<RegistryEntry.Reference<Augment>> augments = new ArrayList<>();
+            augmentRegistry
+                .iterateEntries(AugmentTags.DESOLATE_DUNGEONS_SET)
+                .forEach(augment -> augments.add((RegistryEntry.Reference<Augment>) augment));
             Collections.shuffle(augments);
 
             for (int i = 0; i < 3; i++) {
@@ -75,7 +73,7 @@ public class AugmentInventory {
         offered.clear();
     }
 
-    public void pickAugment(RegistryEntry<Augment> augment) {
+    public void pickAugment(RegistryEntry.Reference<Augment> augment) {
         if (offered.stream().anyMatch(offeredAugment ->
             offeredAugment == augment
             && augment instanceof RegistryEntry.Reference<Augment> augmentReference
@@ -102,11 +100,18 @@ public class AugmentInventory {
     }
 
     public NbtList writeNbt(NbtList nbtList) {
-        for (RegistryEntry<Augment> augment : inventory.values()) {
+        for (RegistryEntry.Reference<Augment> augment : inventory.values()) {
             nbtList.add(NbtString.of(augment.getIdAsString()));
         }
 
         return nbtList;
+    }
+
+    public Text toHoverableText() {
+        MutableText hoveredText = Text.empty();
+        inventory.values().forEach(augment -> hoveredText.append(Augment.toHoverableText(augment)).append(", "));
+        if (hoveredText.getSiblings().size() > 1) { hoveredText.getSiblings().removeLast(); }
+        return hoveredText;
     }
 
     @Override

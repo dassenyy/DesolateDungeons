@@ -16,7 +16,10 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+
+import java.util.List;
 
 public class OfferAugmentsScreen extends Screen {
     public static final Identifier GUI_TEXTURE = Identifier.of("desolate_dungeons:textures/gui/offer_augments.png");
@@ -26,9 +29,9 @@ public class OfferAugmentsScreen extends Screen {
     private static final int BACKGROUND_WIDTH = 182;
     private static final int BACKGROUND_HEIGHT = 88;
     private static final int BUTTON_SIZE = 20;
-    private final RegistryEntry<Augment>[] augments;
+    private final List<RegistryEntry.Reference<Augment>> augments;
 
-    public OfferAugmentsScreen(RegistryEntry<Augment>[] augments) {
+    public OfferAugmentsScreen(List<RegistryEntry.Reference<Augment>> augments) {
         super(Text.literal("Pick an augment"));
         this.augments = augments;
     }
@@ -59,9 +62,9 @@ public class OfferAugmentsScreen extends Screen {
         int x = (this.width - BACKGROUND_WIDTH) / 2;
         int y = ((this.height - BACKGROUND_HEIGHT) / 2);
 
-        addButton(new AugmentButtonWidget(x + 42, y + 44, new ItemStack(Items.PUFFERFISH), augments[0]));
-        addButton(new AugmentButtonWidget(x + 91, y + 44, new ItemStack(Items.PUFFERFISH), augments[1]));
-        addButton(new AugmentButtonWidget(x + 140, y + 44, new ItemStack(Items.PUFFERFISH), augments[2]));
+        addButton(new AugmentButtonWidget(x + 42, y + 44, new ItemStack(Items.PUFFERFISH), augments.get(0)));
+        addButton(new AugmentButtonWidget(x + 91, y + 44, new ItemStack(Items.PUFFERFISH), augments.get(1)));
+        addButton(new AugmentButtonWidget(x + 140, y + 44, new ItemStack(Items.PUFFERFISH), augments.get(2)));
     }
 
     private <T extends ClickableWidget> void addButton(T button) {
@@ -104,9 +107,9 @@ public class OfferAugmentsScreen extends Screen {
         int xCenter;
         int yCenter;
         ItemStack augmentItem;
-        RegistryEntry<Augment> augment;
+        RegistryEntry.Reference<Augment> augment;
 
-        public AugmentButtonWidget(int xCenter, int yCenter, ItemStack itemStack, RegistryEntry<Augment> augment) {
+        public AugmentButtonWidget(int xCenter, int yCenter, ItemStack itemStack, RegistryEntry.Reference<Augment> augment) {
             super((xCenter - (BUTTON_SIZE / 2)), (yCenter - (BUTTON_SIZE / 2)));
             this.xCenter = xCenter;
             this.yCenter = yCenter;
@@ -116,11 +119,11 @@ public class OfferAugmentsScreen extends Screen {
         }
 
         protected void init() {
-            setTooltip(Tooltip.of(this.getAugmentName(), null));
+            setTooltip(Tooltip.of(getNameWithDescription()));
         }
 
-        protected MutableText getAugmentName() {
-            return Text.literal(augment.value().name);
+        protected MutableText getNameWithDescription() {
+            return Augment.getName(augment).append("\n\n").append(Augment.getDescription(augment).formatted(Formatting.DARK_GRAY));
         }
 
         @Override
@@ -136,7 +139,7 @@ public class OfferAugmentsScreen extends Screen {
 
         @Override
         protected MutableText getNarrationMessage() {
-            return getAugmentName();
+            return getNameWithDescription();
         }
     }
 }
