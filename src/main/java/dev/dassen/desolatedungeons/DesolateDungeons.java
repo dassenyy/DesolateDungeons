@@ -11,6 +11,7 @@ import dev.dassen.desolatedungeons.networking.ModPackets;
 import dev.dassen.desolatedungeons.registry.ModDynamicRegistries;
 import dev.dassen.desolatedungeons.registry.ModRegistries;
 import dev.dassen.desolatedungeons.world.gen.ModWorldGeneration;
+import dev.dassen.desolatedungeons.world.gen.densityfunction.ModDensityFunctionTypes;
 import dev.dassen.desolatedungeons.world.gen.placementmodifier.ModPlacementModifiers;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ public class DesolateDungeons implements ModInitializer {
 		ModDynamicRegistries.register();
 
 		ModPlacementModifiers.register();
+		ModDensityFunctionTypes.register();
 		ModWorldGeneration.initialize();
 
 		ModEntities.register();
