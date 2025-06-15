@@ -1,0 +1,22 @@
+{
+  "desolate_dungeons:augment": [
+    "desolate_dungeons:damage",
+    "desolate_dungeons:emergency_pufferfish",
+    "desolate_dungeons:miner_mania",
+    "desolate_dungeons:speed"
+  ],
+  "desolate_dungeons:augment_condition_type": [
+    "desolate_dungeons:value_in_between",
+    "desolate_dungeons:iterate",
+    "desolate_dungeons:random",
+    "desolate_dungeons:remove_attribute",
+    "desolate_dungeons:set_attribute",
+    "desolate_dungeons:sequence",
+    "desolate_dungeons:status_effect",
+    "desolate_dungeons:summon_entity",
+    "desolate_dungeons:with_cooldown"
+  ],
+  "desolate_dungeons:augment_function_type": [
+    "desolate_dungeons:condition"
+  ]
+}
