@@ -32,7 +32,7 @@ public class ModDimensionTypes {
             512,
             BlockTags.INFINIBURN_OVERWORLD,
             DesolateDungeonDimensionEffect.IDENTIFIER,
-            0.15f,
+            0.25f,
             new DimensionType.MonsterSettings(false, false, UniformIntProvider.create(0, 7), 0)
         );
     }

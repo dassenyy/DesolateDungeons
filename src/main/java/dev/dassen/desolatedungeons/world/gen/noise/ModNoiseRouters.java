@@ -1,44 +1,31 @@
 package dev.dassen.desolatedungeons.world.gen.noise;
 
+import com.mojang.datafixers.util.Pair;
+import dev.dassen.desolatedungeons.world.gen.densityfunction.RangeChoiceDensityFunctionBuilder;
 import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
 import net.minecraft.world.gen.densityfunction.DensityFunctionTypes;
 import net.minecraft.world.gen.noise.NoiseParametersKeys;
 import net.minecraft.world.gen.noise.NoiseRouter;
 
+import java.util.List;
+
 public class ModNoiseRouters {
     public static NoiseRouter createDesolateDungeon(
         RegistryEntryLookup<DensityFunction> densityFunctionLookup,
         RegistryEntryLookup<DoublePerlinNoiseSampler.NoiseParameters> noiseParametersLookup
     ) {
-        DensityFunction finalDensity = DensityFunctionTypes.rangeChoice(
-            new DensityFunctionTypes.RegistryEntryHolder(
-                densityFunctionLookup.getOrThrow(RegistryKey.of(RegistryKeys.DENSITY_FUNCTION, Identifier.ofVanilla("y")))
-            ),
-            0d,
-            128d,
-            DensityFunctionTypes.add(
-                DensityFunctionTypes.yClampedGradient(0, 255, 1.5d, -1.5d),
-                DensityFunctionTypes.noise(noiseParametersLookup.getOrThrow(NoiseParametersKeys.GRAVEL))
-            ),
-            DensityFunctionTypes.rangeChoice(
-                new DensityFunctionTypes.RegistryEntryHolder(
-                    densityFunctionLookup.getOrThrow(RegistryKey.of(RegistryKeys.DENSITY_FUNCTION, Identifier.ofVanilla("y")))
-                ),
-                128d,
-                256d,
-                DensityFunctionTypes.add(
-                    DensityFunctionTypes.yClampedGradient(0, 255, -1.5d, 1.5d),
-                    DensityFunctionTypes.noise(noiseParametersLookup.getOrThrow(NoiseParametersKeys.GRAVEL))
-                ),
-                DensityFunctionTypes.add(
-                    DensityFunctionTypes.yClampedGradient(256, 383, 1d, -1d),
-                    DensityFunctionTypes.noise(noiseParametersLookup.getOrThrow(NoiseParametersKeys.EROSION)).clamp(-0.25f, 0.25f)
-                )
+        DensityFunction finalDensity = RangeChoiceDensityFunctionBuilder.buildLayersFromBottom(
+            densityFunctionLookup,
+            0,
+            List.of(
+                // 0 - 63 -> Layer 7 Floor
+                Pair.of(createLayer7Floor(noiseParametersLookup), 64),
+                // 64 - 127 -> Layer 7 Roof
+                Pair.of(createLayer7Roof(noiseParametersLookup), 64),
+                // 128 - 255 -> Layer 1 Floor
+                Pair.of(createLayer1Floor(noiseParametersLookup), 64)
             )
         );
 
@@ -58,6 +45,33 @@ public class ModNoiseRouters {
             DensityFunctionTypes.zero(),            /* 13: veinToggle                       (Large ore vein control) */
             DensityFunctionTypes.zero(),            /* 14: veinRidged                       (Large ore vein control) */
             DensityFunctionTypes.zero()             /* 15: veinGap                          (Large ore vein control) */
+        );
+    }
+
+    private static DensityFunction createLayer7Floor(
+        RegistryEntryLookup<DoublePerlinNoiseSampler.NoiseParameters> noiseParametersLookup
+    ) {
+        return DensityFunctionTypes.add(
+            DensityFunctionTypes.yClampedGradient(0, 127, 1.5d, -1.5d),
+            DensityFunctionTypes.noise(noiseParametersLookup.getOrThrow(NoiseParametersKeys.GRAVEL))
+        );
+    }
+
+    private static DensityFunction createLayer7Roof(
+        RegistryEntryLookup<DoublePerlinNoiseSampler.NoiseParameters> noiseParametersLookup
+    ) {
+        return DensityFunctionTypes.add(
+            DensityFunctionTypes.yClampedGradient(0, 127, -1.5d, 1.5d),
+            DensityFunctionTypes.noise(noiseParametersLookup.getOrThrow(NoiseParametersKeys.GRAVEL))
+        );
+    }
+
+    private static DensityFunction createLayer1Floor(
+        RegistryEntryLookup<DoublePerlinNoiseSampler.NoiseParameters> noiseParametersLookup
+    ) {
+        return DensityFunctionTypes.add(
+            DensityFunctionTypes.yClampedGradient(128, 191, 1d, -1d),
+            DensityFunctionTypes.noise(noiseParametersLookup.getOrThrow(NoiseParametersKeys.BADLANDS_SURFACE), 0.5d, 0.5d).clamp(-1f, 1f)
         );
     }
 }

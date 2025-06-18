@@ -35,7 +35,7 @@ public class ModChunkGeneratorSettings {
             noiseRouter,
             materialRule,
             List.of(),
-            60,
+            -1,
             false,
             false,
             false,
